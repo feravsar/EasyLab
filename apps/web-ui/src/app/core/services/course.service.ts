@@ -10,6 +10,7 @@ export class CourseService {
 
 
   getCourses(){
+    //example change
     return [new Course(101,"Computer Programming 1"), new Course(103, "Istatistics")];
   }
 
