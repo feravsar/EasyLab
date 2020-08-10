@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 
 //Layout Components
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { CoreModule } from './core/core.module'
+import { CoreModule } from './core/core.module';
+import { FooterComponent } from './shared/footer/footer.component';
+import { HeaderComponent } from './shared/header/header.component'
 
 
 
@@ -15,7 +17,9 @@ import { CoreModule } from './core/core.module'
 @NgModule({
   declarations: [
     AppComponent,
-    ContentLayoutComponent
+    ContentLayoutComponent,
+    FooterComponent,
+    HeaderComponent
 
   ],
   imports: [
