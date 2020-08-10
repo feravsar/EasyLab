@@ -12,6 +12,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component'
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { HeaderComponent } from './shared/header/header.component'
     AppRoutingModule,
     CoreModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
