@@ -10,6 +10,8 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 import { CoreModule } from './core/core.module'
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { CoreModule } from './core/core.module'
     AppRoutingModule,
     CoreModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
