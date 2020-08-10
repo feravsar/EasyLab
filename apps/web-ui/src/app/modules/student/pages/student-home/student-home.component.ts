@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { studentCourse } from './../../../../shared/models/studentCourse';
+import { StudentService } from './../../../../core/services/student-services/student.service'
+
 
 @Component({
   selector: 'app-student-home',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentHomeComponent implements OnInit {
 
-  constructor() { }
+  StudentCourses : studentCourse [] ;
 
-  ngOnInit(): void {
+  constructor(private studentService : StudentService) {}
+
+  ngOnInit(): void
+  {
+    this.StudentCourses = this.studentService.getstudentCourse();
   }
 
 }
