@@ -1,0 +1,61 @@
+
+footer[_ngcontent-c2] {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    background: #2c83ca;
+}
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.model[_ngcontent-c2] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.col-md-4 {
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+}
+.footer-h5[_ngcontent-c2] {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}hr.cizgi[_ngcontent-c2] {
+    border-top: 1px solid #fff;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+        border-top-color: currentcolor;
+        border-top-style: none;
+        border-top-width: 0px;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+a[_ngcontent-c2] {
+    color: #fff;
+}
+a {
+    color: #18bc9c;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+
