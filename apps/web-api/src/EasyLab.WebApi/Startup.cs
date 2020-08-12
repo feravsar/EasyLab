@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using IdentityServer4.AccessTokenValidation;
 
 namespace EasyLab.WebApi
 {
@@ -27,15 +28,23 @@ namespace EasyLab.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
-            {
-                options.Authority = "https://localhost:5001";
 
-                options.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
                 {
-                    ValidateAudience = false
-                };
+                    options.Authority = "https://localhost:5001";
+                    options.RequireHttpsMetadata = true;
+                    options.ApiName = "easy-lab-webapi";
+                });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins(Configuration["clientUrl"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
         }
 
@@ -48,7 +57,7 @@ namespace EasyLab.WebApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("default");
             app.UseRouting();
 
             app.UseAuthentication();
