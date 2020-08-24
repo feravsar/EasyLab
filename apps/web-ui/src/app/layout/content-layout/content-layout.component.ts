@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-content-layout',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-layout.component.css']
 })
 export class ContentLayoutComponent implements OnInit {
-
-  constructor() { }
+ 
+  constructor() {
+    
+  }
 
   ngOnInit(): void {
   }
