@@ -7,19 +7,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./content-layout.component.css']
 })
 export class ContentLayoutComponent implements OnInit {
-  isAuthorized=false;
-  constructor(private authService: AuthService) {
+ 
+  constructor() {
     
   }
 
   ngOnInit(): void {
   }
 
-  public login() {
-    this.authService.login();
-  }
- 
-  public logout() {
-    this.authService.logout();
-  }
 }

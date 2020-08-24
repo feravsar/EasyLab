@@ -13,7 +13,6 @@ import { AuthService } from './services/auth.service'
     AuthModule.forRoot()
   ],
   providers:[
-    AuthService,
     OidcSecurityService
   ]
 })
