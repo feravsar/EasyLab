@@ -8,6 +8,8 @@ namespace EasyLab.Core.Module
         public static IServiceCollection AddCoreModule(this IServiceCollection services)
         {
             services.AddTransient<IRegisterUserHandler, RegisterUserHandler>();
+            services.AddTransient<IUserLoginHandler, UserLoginHandler>();
+            services.AddTransient<IExchangeRefreshTokenHandler, ExchangeRefreshTokenHandler>();
             return services;
         }
     }

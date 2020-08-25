@@ -11,27 +11,29 @@ namespace EasyLab.Core.Entities
         public User()
         {
             RefreshTokens = new List<RefreshToken>();
-            VerificationCodes = new List<VerificationCode>();
         }
 
         public string Name { get; set; }
 
         public string Surname { get; set; }
 
-        public string CompanyName { get; set; }
-
         public DateTime DateCreated { get; set; }
+
 
         public virtual List<RefreshToken> RefreshTokens { get; set; }
 
-        public virtual List<VerificationCode> VerificationCodes { get; set; }
+        public virtual List<Assignment> Assignments { get; set; }
+
+        public virtual List<CourseUsers> Courses { get; set; }
+
+        public virtual List<StudentAssignments> StudentAssignments { get; set; }
 
         public bool HasValidRefreshToken(string refreshToken)
         {
             return RefreshTokens.Any(rt => rt.Token == refreshToken && rt.Active);
         }
 
-        public void AddRefreshToken(string token, string userId, string remoteIpAddress, double daysToExpire = 5)
+        public void AddRefreshToken(string token, Guid userId, string remoteIpAddress, double daysToExpire = 5)
         {
             RefreshTokens.Add(new RefreshToken(token, DateTime.UtcNow.AddDays(daysToExpire), userId, remoteIpAddress));
         }

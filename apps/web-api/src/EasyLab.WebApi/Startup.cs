@@ -119,7 +119,7 @@ namespace EasyLab.WebApi
                 options.Password.RequiredLength = 8;
             });
 
-            identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole), identityBuilder.Services);
+            identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole<Guid>), identityBuilder.Services);
 
             identityBuilder
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -143,7 +143,7 @@ namespace EasyLab.WebApi
 
             services.AddSwaggerGen(c =>
                {
-                   c.SwaggerDoc("v1", new OpenApiInfo { Title = "Deneme Api", Version = "v1" });
+                   c.SwaggerDoc("v1", new OpenApiInfo { Title = "EasyLab Api", Version = "v1" });
 
 
                    var xmlFile = "EasyLab.Core.xml";
@@ -209,7 +209,7 @@ namespace EasyLab.WebApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Deneme API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EasyLab Api V1");
             });
 
 
