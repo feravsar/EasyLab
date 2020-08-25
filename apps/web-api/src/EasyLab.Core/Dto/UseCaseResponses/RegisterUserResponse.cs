@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using EasyLab.Core.Interfaces.UseCases;
 
@@ -12,7 +13,7 @@ namespace EasyLab.Core.Dto.UseCaseResponses
     {
 
         /// <summary>User Id</summary>
-        public string Id { get; }
+        public Guid Id { get; }
 
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace EasyLab.Core.Dto.UseCaseResponses
         /// <param name="id">Identifier of the user created.</param>
         /// <param name="success">Specifies whether the operation is successful or not</param>
         /// <param name="message">Message that gives info about the operation</param>
-        public RegisterUserResponse(string id, bool success = true, string message = "User created successfully") : base(success, message)
+        public RegisterUserResponse(Guid id, bool success = true, string message = "User created successfully") : base(success, message)
         {
             Id = id;
         }

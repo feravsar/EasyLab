@@ -62,7 +62,7 @@ namespace EasyLab.Infrastructure.Data.Repositories
 
         public async Task<User> GetUserWithIdentifer(string userIdentifier)
         {
-            return await Queryable().FirstOrDefaultAsync(t => t.Email == userIdentifier || t.PhoneNumber == userIdentifier || t.Id == userIdentifier);
+            return await Queryable().FirstOrDefaultAsync(t => t.Email == userIdentifier || t.PhoneNumber == userIdentifier || t.Id == Guid.Parse(userIdentifier));
         }
 
         public async Task<bool> CheckDuplicateMail(string email)

@@ -3,10 +3,12 @@ using EasyLab.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace EasyLab.Infrastructure.Data
 {
-    public class AppDbContext : IdentityDbContext<User>
+    public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>,Guid>
     {
 
         #region Constructors
