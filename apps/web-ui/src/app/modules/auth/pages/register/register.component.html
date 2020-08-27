@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-3 min-wh-400"  >
+        <div class="card card-container padding-horizontal-30">
+            <img src="/assets/img/logo.png" style="height:200px;width:200px;margin:0 auto">
+            <h3><b>Login</b></h3>
+            <div class="form-group">
+                <input [(ngModel)]="mail" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input [(ngModel)]="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input [(ngModel)]="surname" class="form-control" placeholder="Surname">
+            </div>
+            <div class="form-group">
+                <input [(ngModel)]="password" class="form-control" placeholder="Password">
+                
+            </div>
+            <div class="form-group">
+                <input [(ngModel)]="confirmPassword" class="form-control" placeholder="Confirm Password">
+            </div>
+            <div>
+                <small>Do you have an account? </small><a routerLink="/auth/login"><small>Login</small></a>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary float-right">Register</button>
+            </div>
+        </div>
+      </div>
+</div>
+
