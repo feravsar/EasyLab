@@ -37,7 +37,6 @@ namespace EasyLab.Core.UseCases.User
                 if (user == null)
                     throw new UserNotFoundException(request.Email);
 
-
                 if (!user.EmailConfirmed)
                     throw new EmailNotVerifiedException(user.Email);
 
@@ -45,6 +44,7 @@ namespace EasyLab.Core.UseCases.User
                 if (!(await _userRepository.CheckPassword(user, request.Password)))
                     throw new UsernameOrPasswordWrongException();
 
+                List<string> roles = await _userRepository.GetUserRoles(user) as List<string>;
 
                 //generating refresh token
                 string refreshToken = _tokenFactory.GenerateToken();
@@ -55,7 +55,7 @@ namespace EasyLab.Core.UseCases.User
                 AccessToken accessToken = await _jwtFactory.GenerateEncodedToken(user.Id.ToString(), user.UserName);
 
                 //return tokens
-                response = new UserLoginResponse(accessToken, refreshToken);
+                response = new UserLoginResponse(accessToken, refreshToken, user.Name, user.Surname, roles);
 
             }
             catch (EasyLabException ex)

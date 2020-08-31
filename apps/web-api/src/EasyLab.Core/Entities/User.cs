@@ -40,7 +40,7 @@ namespace EasyLab.Core.Entities
 
         public void RemoveRefreshToken(string refreshToken)
         {
-            RefreshTokens.Remove(RefreshTokens.First(t => t.Token == refreshToken));
+            RefreshTokens.Remove(RefreshTokens.First(t => t.Token == refreshToken));            
         }
 
     }

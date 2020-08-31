@@ -16,11 +16,11 @@
                 <small *ngFor="let error of errors.Surname" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
-                <input [(ngModel)]="password" class="form-control" placeholder="Password">
+                <input [(ngModel)]="password" type="password" class="form-control" placeholder="Password">
                 <small *ngFor="let error of errors.Password" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
-                <input [(ngModel)]="confirmPassword" class="form-control" placeholder="Confirm Password">
+                <input [(ngModel)]="confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
                 <small *ngFor="let error of errors.ConfirmPassword" class="text-danger" > {{error}}</small>
             </div>
             <div>

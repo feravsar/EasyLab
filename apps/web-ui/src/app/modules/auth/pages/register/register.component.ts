@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
         }
       },
       e => {
-        console.log("e",e)
         if (e.error.errors instanceof Array) {
           this.errors.CustomErrors = e.error.errors;
         }

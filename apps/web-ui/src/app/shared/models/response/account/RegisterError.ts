@@ -7,4 +7,5 @@ export class RegisterError{
     public Password: string[];
     public ConfirmPassword: string[];
     public CustomErrors: CustomError[];
+    public Username: string[];
 }

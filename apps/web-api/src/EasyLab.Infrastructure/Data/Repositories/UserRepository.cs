@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using EasyLab.Core.Specifications;
 using System;
+using System.Collections.Generic;
 
 namespace EasyLab.Infrastructure.Data.Repositories
 {
@@ -59,7 +60,6 @@ namespace EasyLab.Infrastructure.Data.Repositories
            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
 
-
         public async Task<User> GetUserWithIdentifer(string userIdentifier)
         {
             return await Queryable().FirstOrDefaultAsync(t => t.Email == userIdentifier || t.PhoneNumber == userIdentifier || t.Id == Guid.Parse(userIdentifier));
@@ -73,6 +73,10 @@ namespace EasyLab.Infrastructure.Data.Repositories
         public async Task<bool> CheckDuplicatePhoneNumber(string phoneNumber)
         {
             return await Queryable().AnyAsync(t => t.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<IList<String>> GetUserRoles(User user){
+            return await _userManager.GetRolesAsync(user);
         }
 
     }

@@ -8,7 +8,8 @@ namespace EasyLab.Core.Specifications
     {
         public UserSpecification(Guid id) : base(u => u.Id==id)
         {
-            AddInclude(t=>t.RefreshTokens);
+            
+            AddInclude(t=>t.RefreshTokens);     
         }
     }
 }

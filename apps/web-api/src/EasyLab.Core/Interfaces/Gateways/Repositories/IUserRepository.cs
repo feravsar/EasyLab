@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EasyLab.Core.Dto.GatewayResponses.Repositories;
 using EasyLab.Core.Entities;
@@ -14,6 +16,7 @@ namespace EasyLab.Core.Interfaces.Gateways.Repositories{
         Task<bool> CheckDuplicateMail(string email);
         Task<bool> CheckDuplicatePhoneNumber(string phoneNumber);
         Task<IdentityResult> ChangePassword(User user, string oldPassword, string newPassword);
+        Task<IList<String>> GetUserRoles(User user);
     }
 
 }
