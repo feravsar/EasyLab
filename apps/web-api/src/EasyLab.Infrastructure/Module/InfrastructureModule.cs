@@ -14,6 +14,7 @@ namespace EasyLab.Infrastructure.Module
             #region Repositories - Alphabetic order
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
       
             #endregion
             services.AddSingleton<IJwtFactory, JwtFactory>();
