@@ -12,7 +12,8 @@ import { CoreModule } from './core/core.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {AuthInterceptor} from './core/helpers/auth.interceptor'
 
 
 
@@ -32,7 +33,11 @@ import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
     FormsModule
   ],
   providers: [
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

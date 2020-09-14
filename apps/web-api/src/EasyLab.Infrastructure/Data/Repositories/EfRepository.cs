@@ -18,13 +18,10 @@ namespace EasyLab.Infrastructure.Data.Repositories
             _dbContext = dbContext;
         }
 
-
         public virtual async Task<T> GetById<S>(S id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
-
-
         public async Task<T> GetSingleBySpec(ISpecification<T> spec)
         {
             var result = await List(spec);

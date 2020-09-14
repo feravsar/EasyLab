@@ -4,6 +4,10 @@ namespace EasyLab.Core.Entities
 {
     public class CourseUsers
     {
+        public CourseUsers(){
+            DateAdded = DateTime.UtcNow;
+        }
+        
         public Guid UserId { get; set; }
 
         public Guid CourseId { get; set; }
