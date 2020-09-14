@@ -15,7 +15,7 @@ namespace EasyLab.Infrastructure.Module
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
-      
+            services.AddTransient<ICourseUsersRepository, CourseUsersRepository>();
             #endregion
             services.AddSingleton<IJwtFactory, JwtFactory>();
             services.AddSingleton<IJwtTokenHandler, JwtTokenHandler>();

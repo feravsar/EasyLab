@@ -9,11 +9,9 @@ using Microsoft.AspNetCore.Identity;
 namespace EasyLab.Core.Interfaces.Gateways.Repositories
 {
 
-    public interface ICourseRepository : IEfRepository<Course>
+    public interface ICourseUsersRepository : IEfRepository<CourseUsers>
     {
-        Task<List<CourseInfo>> GetAuthoredCourses(Guid authorId);
-        Task<bool> IsAuthoredForMembersList(Guid userId, Guid courseId);
-        Task<Course> GetCourseWithUsers(Guid courseId);
+        Task<List<CourseUserInfo>> GetMembers(Guid courseId);
     }
 
 }

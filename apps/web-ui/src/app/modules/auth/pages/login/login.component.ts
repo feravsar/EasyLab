@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     ).subscribe(
       data => {
         console.log(data);
-        this.tokenStorageService.saveToken(data.accessToken);
+        this.tokenStorageService.saveToken(data.accessToken.token);
         this.tokenStorageService.saveUser(data.userInfo);
         if (data.userInfo.roles.includes("Teacher")) {
           this.router.navigate(["teacher"])

@@ -5,6 +5,11 @@ namespace EasyLab.Core.Entities
 {
     public class Course
     {
+        public Course(){
+            Assignments = new List<Assignment>();
+            Users = new List<CourseUsers>();
+            DateCreated = DateTime.UtcNow;
+        }
         public Guid Id { get; set; }
 
         public string Name { get; set; }

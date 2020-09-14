@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Course } from './../../shared/models/Course'
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+const AUTH_API = "http://localhost:5000/";
 
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
 
   getCourses(){
     //example change
-    return [new Course(101,"Computer Programming 1"), new Course(103, "Istatistics")];
+      return this.http.get(AUTH_API + "T/Courses", httpOptions)
+  
   }
 
 
