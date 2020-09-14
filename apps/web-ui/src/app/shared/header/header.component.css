@@ -1,8 +1,16 @@
-button:focus {
-    outline: 0;
+body {
+  background: linear-gradient(70deg, #e6e6e6, #f7f7f7);
+  color: #514B64;
+  min-height: 100vh;
 }
 
-.navbar .dropdown-menu .form-control {
-    width: 200px;
-    
+code {
+  background: #fff;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+  margin: 0 0.3rem;
+}
+
+.navbar{
+  margin-bottom: 45px;
 }
