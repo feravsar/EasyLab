@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 
 
-//const AUTH_API = "http://aybs.akdeniz.edu.tr/";
-const AUTH_API = "http://localhost:5000/";
+const AUTH_API = "http://aybs.akdeniz.edu.tr/";
+//const AUTH_API = "http://localhost:5000/";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

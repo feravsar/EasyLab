@@ -61,13 +61,22 @@
 				<div class="card">
 					<img src="https://source.unsplash.com/500x500/?coding,programming" class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">{{course.courseName}}</h5>
+						<h5 class="card-title">{{course.name}}</h5>
 						<p class="card-text">{{course.description}}</p>
 						<a href="#" class="btn btn-sm btn-primary"> Go to </a>
 					</div>
 				</div>
 			</div>
 		 </ng-container>
+		 <form class="text-center border border-light p-4" >
+			<p class="h4 mb-4">Create Course</p>
+			<input type="text" id="nameforcourse" class="form-control mb-4" placeholder="Name">
+			<input type="text" id="coursedescription" class="form-control mb-4" placeholder="Description">
+			<button type="button" (click)="onSubmit()" class="btn btn-primary float-right">Create</button>
+		</form>
 		</div>
+			 
+		
+		
 
 </div>
