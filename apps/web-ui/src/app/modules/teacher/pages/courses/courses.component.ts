@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from './../../../../core/services/course.service'
-import { Course } from './../../../../shared/models/Course'
-import { AuthService } from 'src/app/core/services/auth.service';
+import { Course } from '@data/schema/course';
 
 @Component({
   selector: 'app-courses',
@@ -11,25 +10,38 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [];
+  courses: Course[];
 
-  coursename: string = null;
-  description: string = null;
+  name:string;
+  description:string;
 
-  constructor(private courseService: CourseService,private authService: AuthService) {
+  constructor(private courseService: CourseService) {
 
    }
 
   ngOnInit(): void {
-    let a  = this.courseService.getCourses().subscribe(data=>{this.courses = data.courses;
-    console.log(data)})
-  
+    this.courseService.getCourses()
+      .subscribe(data => { this.courses = data.courses })
   }
-  
-  onSubmit() {
-    this.courseService.addCourses()
-      coursename: this.coursename,
-      description: this.description
+
+  createNewCourse(){
+    this.courseService.addCourse({
+      name:this.name,
+      description:this.description
+    }).subscribe(
+      data => {
+        this.courses.push(new Course(data.id,this.name,this.description,null,0));
+        this.clearModal();
+      },
+      err =>{
+        console.log(err);
+      }
+    )
+  }
+
+  clearModal(){
+    this.name = null;
+    this.description = null;
   }
 
 }

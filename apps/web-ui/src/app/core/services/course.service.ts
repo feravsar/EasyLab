@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Course } from './../../shared/models/Course'
+import { CourseList } from '@data/response/course-list';
+import { EntityAdded } from '@data/response/entity-added';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-//const AUTH_API = "http://localhost:5000/";
-const AUTH_API = "http://aybs.akdeniz.edu.tr/";
+import { Observable } from 'rxjs';
+import { environment } from '@env'
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,13 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
 
-  getCourses(){
-    //example change
-      return this.http.get<any>(AUTH_API + "T/Courses", httpOptions)
+  getCourses(): Observable<CourseList> {
+    return this.http.get<CourseList>(environment.API_URL + "T/Courses")
+  }
   
-  }
-  //
-  addCourses(){
-      return this.http.post<any>(AUTH_API + "Course/AddCourse", httpOptions)
-  }
 
+  addCourse(object: any): Observable<EntityAdded> {
+    return this.http.post<EntityAdded>(environment.API_URL + "Course/AddCourse", object)
+  }
 
 }

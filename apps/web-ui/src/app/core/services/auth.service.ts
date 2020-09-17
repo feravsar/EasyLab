@@ -3,14 +3,8 @@ import { OidcSecurityService, OpenIdConfiguration, AuthWellKnownEndpoints, Autho
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
+import { environment } from '@env' 
 
-
-const AUTH_API = "http://aybs.akdeniz.edu.tr/";
-//const AUTH_API = "http://localhost:5000/";
-
-const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 
 @Injectable({
@@ -24,11 +18,11 @@ export class AuthService {
     }
 
     login(credentials): Observable<any> {
-        return this.http.post(AUTH_API + "Auth/Login", credentials, httpOptions)
+        return this.http.post(environment.API_URL + "Auth/Login", credentials)
     }
 
     register(user): Observable<any> {
-        return this.http.post(AUTH_API+ "Accounts/Register",user, httpOptions);
+        return this.http.post(environment.API_URL+ "Accounts/Register",user);
     }
 
 }

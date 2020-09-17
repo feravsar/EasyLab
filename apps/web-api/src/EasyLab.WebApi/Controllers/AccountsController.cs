@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using EasyLab.Core.Dto.UseCaseRequests;
 using EasyLab.Core.Dto.UseCaseResponses;
@@ -15,15 +16,18 @@ namespace EasyLab.WebApi.Controllers
 
         //Registering user
         private readonly IRegisterUserHandler _registerUserHandler;
+        private readonly ISearchUserHandler _searchUserHandler;
         private readonly BasePresenter _basePresenter;
 
 
         public AccountsController(
             IRegisterUserHandler registerUserHandler,
+            ISearchUserHandler searchUserHandler,
             BasePresenter basePresenter
            )
         {
             _registerUserHandler = registerUserHandler;
+            _searchUserHandler = searchUserHandler;
             _basePresenter = basePresenter;
         }
 
@@ -44,6 +48,22 @@ namespace EasyLab.WebApi.Controllers
                     request.Surname, 
                     request.Email, 
                     request.Password),
+                 _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+        
+        [HttpGet("SearchUser")]
+        public async Task<ActionResult> SearchUser(string searchTerm)
+        {
+            if (String.IsNullOrWhiteSpace(searchTerm) || searchTerm.Length<3)
+            {
+                return BadRequest(ModelState);
+            }
+             await _searchUserHandler.Handle(
+                 new SearchUserRequest(
+                    searchTerm),
                  _basePresenter);
 
             return _basePresenter.ContentResult;

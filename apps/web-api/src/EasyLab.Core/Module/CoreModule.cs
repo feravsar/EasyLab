@@ -15,6 +15,7 @@ namespace EasyLab.Core.Module
             services.AddTransient<IGetAuthoredCoursesHandler, GetAuthoredCoursesHandler>();
             services.AddTransient<IGetMembersHandler, GetMembersHandler>();
             services.AddTransient<IRegisterUserHandler, RegisterUserHandler>();
+            services.AddTransient<ISearchUserHandler, SearchUserHandler>();
             services.AddTransient<IUserLoginHandler, UserLoginHandler>();
             services.AddTransient<IAddMemberHandler, AddMemberHandler>();
             services.AddTransient<IExchangeRefreshTokenHandler, ExchangeRefreshTokenHandler>();
