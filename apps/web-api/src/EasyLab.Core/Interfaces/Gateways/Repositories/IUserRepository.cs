@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EasyLab.Core.Dto.GatewayResponses.Repositories;
+using EasyLab.Core.Dto.User;
 using EasyLab.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,6 +18,7 @@ namespace EasyLab.Core.Interfaces.Gateways.Repositories{
         Task<bool> CheckDuplicatePhoneNumber(string phoneNumber);
         Task<IdentityResult> ChangePassword(User user, string oldPassword, string newPassword);
         Task<IList<String>> GetUserRoles(User user);
+        Task<List<UserInfo>> Search(string searchTerm);
     }
 
 }

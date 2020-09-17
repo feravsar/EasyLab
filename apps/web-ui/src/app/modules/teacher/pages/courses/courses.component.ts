@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from './../../../../core/services/course.service'
-import { Course } from './../../../../shared/models/Course'
+import { Course } from '@data/schema/course';
 
 @Component({
   selector: 'app-courses',
@@ -9,12 +9,36 @@ import { Course } from './../../../../shared/models/Course'
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [];
+  courses: Course[];
+
+  name:string;
+  description:string;
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
-    let a  = this.courseService.getCourses().subscribe(t=>console.log(t))
+    this.courseService.getCourses()
+      .subscribe(data => { this.courses = data.courses })
+  }
+
+  createNewCourse(){
+    this.courseService.addCourse({
+      name:this.name,
+      description:this.description
+    }).subscribe(
+      data => {
+        this.courses.push(new Course(data.id,this.name,this.description,null,0));
+        this.clearModal();
+      },
+      err =>{
+        console.log(err);
+      }
+    )
+  }
+
+  clearModal(){
+    this.name = null;
+    this.description = null;
   }
 
 }
