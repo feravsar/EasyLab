@@ -27,7 +27,7 @@ namespace EasyLab.Infrastructure.Data.Repositories
               .Select(t => new CourseInfo(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
               .ToListAsync();
         }
-        public async Task<bool> IsAuthoredForMembersList(Guid userId, Guid courseId)
+        public async Task<bool> IsAuthoredAsTeacher(Guid userId, Guid courseId)
         {
             return await Queryable()
                 .AnyAsync(t => t.Id == courseId && (t.AuthorId == userId || t.Users.Any(u => u.UserId == userId && u.IsInstructor)));

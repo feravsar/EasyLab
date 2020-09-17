@@ -12,7 +12,9 @@ namespace EasyLab.Core.Module
         public static IServiceCollection AddCoreModule(this IServiceCollection services)
         {
             services.AddTransient<IAddCourseHandler, AddCourseHandler>();
+            services.AddTransient<ICreateAssignmentHandler, CreateAssignmentHandler>();
             services.AddTransient<IGetAuthoredCoursesHandler, GetAuthoredCoursesHandler>();
+            services.AddTransient<IGetAssignmentsHandler, GetAssignmentsHandler>();
             services.AddTransient<IGetMembersHandler, GetMembersHandler>();
             services.AddTransient<IRegisterUserHandler, RegisterUserHandler>();
             services.AddTransient<ISearchUserHandler, SearchUserHandler>();

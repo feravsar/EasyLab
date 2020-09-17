@@ -13,6 +13,7 @@ namespace EasyLab.Infrastructure.Module
         {
             #region Repositories - Alphabetic order
 
+            services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddTransient<ICourseUsersRepository, CourseUsersRepository>();

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyLab.Core.Dto.UseCaseRequests;
@@ -18,13 +19,16 @@ namespace EasyLab.WebApi.Controllers
     public class CourseController : ControllerBase
     {
         private readonly IAddCourseHandler _addCourseHandler;
+        private readonly ICreateAssignmentHandler _createAssignmentHandler;
+        private readonly IGetAssignmentsHandler _getAssignmentsHandler;
         private readonly BasePresenter _basePresenter;
 
-        public CourseController(
-            IAddCourseHandler addCourseHandler,
-            BasePresenter basePresenter)
+
+        public CourseController(IAddCourseHandler addCourseHandler, ICreateAssignmentHandler createAssignmentHandler, IGetAssignmentsHandler getAssignmentsHandler, BasePresenter basePresenter)
         {
             _addCourseHandler = addCourseHandler;
+            _createAssignmentHandler = createAssignmentHandler;
+            _getAssignmentsHandler = getAssignmentsHandler;
             _basePresenter = basePresenter;
         }
 
@@ -46,5 +50,43 @@ namespace EasyLab.WebApi.Controllers
 
         }
 
+
+        [Authorize]
+        [HttpPost("CreateAssignment")]
+        public async Task<ActionResult> CreateAssignment([FromBody] Models.Request.CreateAssignmentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _createAssignmentHandler.Handle(
+                new CreateAssignmentRequest(request.CourseId,new System.Guid(userId),request.Due,request.Description,request.LanguageId,request.Title),
+                _basePresenter);
+            
+            return _basePresenter.ContentResult;
+
+        }
+
+        [Authorize]
+        [HttpGet("Assignments")]
+        public async Task<ActionResult> Assignments(Guid courseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _getAssignmentsHandler.Handle(
+                new GetAssignmentsRequest(new Guid(userId),courseId),
+                _basePresenter);
+            
+            return _basePresenter.ContentResult;
+
+        }
     }
 }

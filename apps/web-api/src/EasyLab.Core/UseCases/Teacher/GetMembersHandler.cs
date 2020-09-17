@@ -23,7 +23,7 @@ namespace EasyLab.Core.UseCases.Teacher
         public async Task Handle(GetMembersRequest request, IOutputPort<GetMembersResponse> outputPort)
         {
 
-            if (!(await _courseRepository.IsAuthoredForMembersList(request.UserId, request.CourseId)))
+            if (!(await _courseRepository.IsAuthoredAsTeacher(request.UserId, request.CourseId)))
                 throw new Exception("You're not authorized for this action");
 
 
