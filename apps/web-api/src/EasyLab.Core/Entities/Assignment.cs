@@ -19,6 +19,8 @@ namespace EasyLab.Core.Entities
 
         public int LanguageId { get; set; }
 
+        public string Title { get; set; }
+
         public string TestCase { get; set; }
 
 
