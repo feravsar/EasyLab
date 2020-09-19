@@ -2,7 +2,8 @@
     <div class="row p-2">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#assignments">Assignments</a>
+                <a class="nav-link active" data-toggle="tab" href="#assign">Assignments </a>
+                
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#teachers">Teachers</a>
@@ -11,9 +12,13 @@
                 <a class="nav-link " data-toggle="tab" href="#students">Students</a>
             </li>
 
+
         </ul>
+        
+            
+        
         <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade active show" id="assignments">
+            <div class="tab-pane fade active show" id="assign">
                 <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
                     retro
                     synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
@@ -22,6 +27,22 @@
                     Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher
                     voluptate
                     nisi qui.</p>
+                    <div class="col-md-4 p-2" >
+                        <div class="card" style="cursor: pointer; height: 300px;">
+                            <img src="https://source.unsplash.com/400x300/?coding,programming" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-text">{{assignments.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                     
+                  <!--   <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"> <i
+                                    class="fas fa-plus"></i> Create New Assignment</button>
+                        </div>
+                    </div>  -->
+                   
             </div>
 
             <div class="tab-pane fade" id="teachers">
