@@ -29,9 +29,10 @@ namespace EasyLab.Core.UseCases.Course{
                 CourseId = request.CourseId,
                 DateCreated = DateTime.UtcNow,
                 Description = request.Description,
+                Title = request.Title,
                 LanguageId = 1,
                 TestCase = null,
-                Due = DateTime.UtcNow,
+                Due = request.Due.ToUniversalTime(),
             });
 
             outputPort.Handle(new CreateAssignmentResponse(entity.Id));

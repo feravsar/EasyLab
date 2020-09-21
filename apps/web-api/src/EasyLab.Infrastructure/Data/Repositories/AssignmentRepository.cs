@@ -21,8 +21,10 @@ namespace EasyLab.Infrastructure.Data.Repositories
         {
             return await Queryable()
                 .Where(t=>t.CourseId == courseId)
+                .OrderBy(t=>t.DateCreated)
                 .Select(t=>new AssignmentInfo(t.Id,t.Author.Name + " " + t.Author.Surname, t.Due,t.DateCreated,t.Title,t.Description,t.Language.LanguageName))
-                .ToListAsync();
+                .ToListAsync()
+                ;
 
         }
     }

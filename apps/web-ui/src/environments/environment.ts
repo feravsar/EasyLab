@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL : 'http://aybs.akdeniz.edu.tr/'
+  API_URL : 'http://localhost:5000/'
 };
 
 /*

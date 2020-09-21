@@ -24,8 +24,8 @@ export class CoursesComponent implements OnInit {
       .subscribe(data => { this.courses = data.courses })
   }
 
-  courseDetail(id){
-    this.router.navigate(['teacher/course-detail',id])
+  courseDetail(course){
+    this.router.navigate(['teacher/course-detail',course.id],{state:course})
   }
 
   createNewCourse(){

@@ -1,65 +1,98 @@
 <div class="container">
     <div class="d-flex justify-content-between">
-		<div class="p-2">
-			<h4>My Assignments</h4>
-		</div>
-		<div class="p-2">
-			<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"> <i
-					class="fas fa-plus"></i>Create New Assignments</button>
-		</div>
-	</div>
+        <div class="p-2">
+            <h4>{{courseInfo.name}}</h4>
+        </div>
+        <div class="p-2">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"> <i
+                    class="fas fa-plus"></i>Create New Assignments</button>
+        </div>
+    </div>
     <div class="row p-2">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#assign">Assignments </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#teachers">Teachers</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " data-toggle="tab" href="#students">Students</a>
-            </li>
-        </ul>
-        
-            
-<!--
-     <section class="jumbotron text-center">
-                    <div class="container">
-                    <div *ngFor="let assignment of assignments; index as i">
-                      <h1 class="jumbotron-heading">Homework Definition</h1>
-                      <p class="lead text-muted">Given an array of n elements, create a new array which is a rotation of given array and hamming distance between both the arrays is maximum.
-                        Hamming distance between two arrays or strings of equal length is the number of positions at which the corresponding character(elements) are different.</p>
-                        <p> <small>{{assignment.description}} </small></p>
-                    </div>
-                    </div>
-                  </section>
--->
-        <div id="myTabContent" class="tab-content">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs d-flex justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#assign">Assignments </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#teachers">Members</a>
+                </li>
+           
+            </ul>
+        </div>
+        <div id="myTabContent" class="tab-content col-md-12 p-2">
             <div class="tab-pane fade active show" id="assign">
-                <section class="jumbotron text-center">
-                    <div class="container">
-                      <h1 class="jumbotron-heading">Homework Definition</h1>
-                      <p class="lead text-muted">Given an array of n elements, create a new array which is a rotation of given array and hamming distance between both the arrays is maximum.
-                        Hamming distance between two arrays or strings of equal length is the number of positions at which the corresponding character(elements) are different.</p>
-                    </div>
-                  </section>
+                <div class="container">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            *ngFor="let assignment of assignments">
+                            <div class="p-1">
+                                <h4>{{assignment.title}} <small>({{assignment.author}})</small></h4>
+                                <p>{{assignment.language}} - Due:{{assignment.due | date :  "dd.MM.y h:mm"}}</p>
+                            </div>
+                            <div class="p1">
+                                <button type="button" class="btn btn-outline-info">Detail</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="tab-pane fade" id="teachers">
-                <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
-                    fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer,
-                    iphone
-                    skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
-                    gentrify squid 8-bit cred pitchfork.</p>
+                <div class="container">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            *ngFor="let user of users">
+                            <div class="p-1">
+                                {{user.name}} {{user.surname}}
+                                <p>{{user.email}}</p>
+                            </div>
+                            <div class="p-1">
+                                <span *ngIf="user.isInstructor" class="badge badge-danger">Instructor</span>
+                                <span *ngIf="!user.isInstructor" class="badge badge-info">Student</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="tab-pane fade" id="students">
-                <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
-                    cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
-                    locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before
-                    they
-                    sold out farm-to-table VHS viral locavore cosby sweater.</p>
-            </div>
+          
         </div>
     </div>
 </div>
 
+
+
+
+<!-- Add new course modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Create a new course!</h5>
+				<button type="button" class="close" data-dismiss="modal" (click)="clearModal()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<small *ngIf="newAssignment.title"><i>Title</i></small>
+					<input [(ngModel)]="newAssignment.title" class="form-control" placeholder="Name">
+				</div>
+				<div class="form-group">
+					<small *ngIf="newAssignment.description"> <i>Description</i></small>
+					<textarea [(ngModel)]="newAssignment.description" class="form-control" placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+					<small *ngIf="newAssignment.due"> <i>Due</i></small>
+					<input [(ngModel)]="newAssignment.due" type="datetime-local" class="form-control" placeholder="Due">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearModal()">Cancel</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal"
+					(click)="createNewAssignment()">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

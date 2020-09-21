@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from './../../../../core/services/course.service'
 import { Course } from '@data/schema/course';
 import { Assignment } from '@data/schema/assingment';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '@data/schema/user';
 
 @Component({
   selector: 'app-course-detail',
@@ -11,46 +12,63 @@ import { Router } from '@angular/router';
 })
 export class CourseDetailComponent implements OnInit {
 
+  courseInfo: Course;
+  courseId: string;
+
+  newAssignment: Assignment = new Assignment();
+
   assignments: Assignment[];
-  
-    courseId: string;
-    due: Date;
-    isInstructor: boolean;
-    description: string;
-    title: string;
-    languageId: string;
+  users : User[];
+
+  due: Date;
+  isInstructor: boolean;
+  description: string;
+  title: string;
+  languageId: string;
 
 
   constructor(private courseService: CourseService,
-    private router:Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.courseService.getAssignment()
-      .subscribe(data => { this.assignments = data.assignments })
-  }
-  courseDetail(id){
-    this.router.navigate(['teacher/course-detail',id])
+    this.courseInfo = history.state;
+    this.activatedRoute.params.subscribe(params => {
+      this.courseId = params['id'];
+    });
+    this.getAssignments();
+    this.getCourseUsers();
   }
 
-  createNewAssignment(){
-    this.courseService.CreateAssignmet({
-      due:this.due,
-      description:this.description,
-      languageId:this.languageId
-    }).subscribe(
+
+  createNewAssignment() {
+    this.newAssignment.languageId = 1;
+    this.newAssignment.courseId = this.courseId;
+    this.newAssignment.due = new Date(this.newAssignment.due);
+
+    this.courseService.createAssignmet(this.newAssignment).subscribe(
       data => {
-        this.assignments.push(new Assignment(data.id,this.due,"true",null,this.description,this.languageId));
         this.clearModal();
+        this.getAssignments();
       },
-      err =>{
+      err => {
         console.log(err);
       }
     )
   }
+  getAssignments() {
+    this.courseService.getAssignments(this.courseId)
+      .subscribe(data => { this.assignments = data.assignments })
+  }
 
-  clearModal(){
-    this.languageId = null;
-    this.description = null;
+  getCourseUsers(){
+    this.courseService.getMembers(this.courseId)
+      .subscribe(data => {this.users = data.courseUsers})
+  }
+
+  clearModal() {
+    this.newAssignment = new Assignment();
   }
 
 }
