@@ -23,10 +23,19 @@ namespace EasyLab.Infrastructure.Data.Repositories
         public async Task<List<CourseInfo>> GetAuthoredCourses(Guid authorId)
         {
             return await Queryable()
-              .Where(t => t.AuthorId == authorId)
+              .Where(t => (t.AuthorId == authorId) || t.Users.Any(a=>a.IsInstructor && a.UserId == authorId))
               .Select(t => new CourseInfo(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
               .ToListAsync();
         }
+
+         public async Task<List<CourseInfo>> GetEnrolledCourses(Guid userId)
+        {
+            return await Queryable()
+              .Where(t =>  t.Users.Any(a=> !a.IsInstructor && a.UserId == userId))
+              .Select(t => new CourseInfo(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
+              .ToListAsync();
+        }
+        
         public async Task<bool> IsAuthoredAsTeacher(Guid userId, Guid courseId)
         {
             return await Queryable()

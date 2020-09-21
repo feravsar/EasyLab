@@ -14,6 +14,8 @@ namespace EasyLab.Core.Interfaces.Gateways.Repositories
         Task<List<CourseInfo>> GetAuthoredCourses(Guid authorId);
         Task<bool> IsAuthoredAsTeacher(Guid userId, Guid courseId);
         Task<Course> GetCourseWithUsers(Guid courseId);
+
+         Task<List<CourseInfo>> GetEnrolledCourses(Guid userId);
     }
 
 }
