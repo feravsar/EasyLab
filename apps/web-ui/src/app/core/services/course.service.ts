@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CourseList } from '@data/response/course-list';
+import { AssignmentList } from "@data/response/assignment-list";
 import { EntityAdded } from '@data/response/entity-added';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,6 +23,14 @@ export class CourseService {
 
   addCourse(object: any): Observable<EntityAdded> {
     return this.http.post<EntityAdded>(environment.API_URL + "Course/AddCourse", object)
+  }
+
+  getAssignment(): Observable<AssignmentList> {
+    return this.http.get<AssignmentList>(environment.API_URL + "Course/Assignments")
+  }
+
+  CreateAssignmet(object: any): Observable<EntityAdded> {
+    return this.http.post<EntityAdded>(environment.API_URL + "Course/CreateAssignment", object)
   }
 
 }
