@@ -11,7 +11,7 @@
 
 	<div class="row mb-5 cstm-height-card">
 		<div class="col-md-4 p-2" *ngFor="let course of courses; index as i">
-			<div class="card" style="cursor: pointer; height: 300px;">
+			<div class="card" style="cursor: pointer; height: 300px;" (click)="courseDetail(course.id)">
 				<img src="https://source.unsplash.com/400x300/?coding,programming" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">{{course.name}}</h5>
