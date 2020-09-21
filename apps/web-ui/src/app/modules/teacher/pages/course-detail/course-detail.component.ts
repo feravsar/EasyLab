@@ -20,7 +20,6 @@ export class CourseDetailComponent implements OnInit {
     title: string;
     languageId: string;
 
-  //this.courseService.getAssignment().subscribe(data => { this.assignments = data.assignments })
 
   constructor(private courseService: CourseService,
     private router:Router) { }

@@ -20,7 +20,6 @@ export class CourseService {
   getCourses(): Observable<CourseList> {
     return this.http.get<CourseList>(environment.API_URL + "T/Courses")
   }
-  
 
   addCourse(object: any): Observable<EntityAdded> {
     return this.http.post<EntityAdded>(environment.API_URL + "Course/AddCourse", object)
