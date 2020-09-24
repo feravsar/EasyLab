@@ -2,21 +2,27 @@
     <input class="form-control" type="text" placeholder="type to search..." (input)="search($event.target.value)">
 </div>
 
-<div class="form-group">
-    <ng-container *ngIf="(users$ | async) as users">
-        <div class="card border-light mb-3" *ngFor="let user of users.users">
-            <div class="card-body">
-                <div class="d-flex flex-row align-items-center">
-                    <div class="p-2">
-                        <input type="checkbox" style="width: 20px;height: 20px;" />
-                    </div>
-                    <div class="p-2">
-                        {{user.name}} {{user.surname}}
-                        <br />
-                        <small>{{user.username}}</small>
+<div class="form-group d-flex flex-column">
+    <div style="max-height: 500px; overflow: auto;">
+        <ng-container *ngIf="users">
+            <div class="card border-light mb-2" *ngFor="let user of users">
+                <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                        <div class="p-2">
+                            <input type="checkbox" style="width: 20px;height: 20px;" [(ngModel)]="user.selected" />
+                        </div>
+                        <div class="p-2">
+                            {{user.name}} {{user.surname}}
+                            <br />
+                            <small>{{user.username}}</small>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </ng-container>
+        </ng-container>
+    </div>
+    <div class="form-group align-self-end">
+        <button type="button" class="btn btn-outline-success"  (click)="select()"><i class="fas fa-check"></i> Select</button>
+    </div>
 </div>
+

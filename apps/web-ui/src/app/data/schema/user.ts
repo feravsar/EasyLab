@@ -6,5 +6,7 @@ export class User {
     public email: string;
     public isInstructor: boolean;
     public dateAdded: Date;
+    public username: string;
+    public selected: boolean;
     
 }

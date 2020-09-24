@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '@data/schema/user';
 import { Subject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { UserService } from './../../../../core/services/user.service'
 
 
@@ -12,6 +13,13 @@ import { UserService } from './../../../../core/services/user.service'
 export class SearchUserComponent implements OnInit {
 
   private searchTermSubject = new Subject<string>();
+  users: User[];
+
+
+  @Input() courseId: string;
+  @Output() onSelect = new EventEmitter();
+
+
 
   constructor(private userService: UserService) { }
 
@@ -19,16 +27,23 @@ export class SearchUserComponent implements OnInit {
   }
 
 
-   users$ = this.searchTermSubject.pipe(
+  users$ = this.searchTermSubject.pipe(
     debounceTime(250),
     distinctUntilChanged(),
     switchMap(searchTerm =>
       this.userService.searchUser(searchTerm)
-  ))
+    )).subscribe(
+      data => this.users = data.users
+    )
 
   search(searchTerm: string) {
     if (searchTerm.length > 2)
       this.searchTermSubject.next(searchTerm);
+  }
+
+  select() {
+    let selectedUsers = this.users.filter(t => t.selected);
+    this.onSelect.emit(selectedUsers);
   }
 
 }

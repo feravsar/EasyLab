@@ -39,4 +39,8 @@ export class CourseService {
   getMembers(courseId: string): Observable<UserList> {
     return this.http.get<UserList>(environment.API_URL + "T/GetMembers?courseId=" + courseId)
   }
+
+  addMember(object: any) {
+    return this.http.post(environment.API_URL + "T/AddMember" , object)
+  }
 }

@@ -71,6 +71,20 @@ export class CourseDetailComponent implements OnInit {
     this.newAssignment = new Assignment();
   }
 
+
+  onUserSelect($event){
+    ($event).forEach(t=>{
+      console.log(t);
+      this.courseService.addMember({
+        courseId : this.courseId,
+        userId : t.id,
+        isInstructor : false
+      }).subscribe( data =>
+        this.users.push(t)
+      ),
+      err => console.log(err)
+    })
+  }
 }
 
 
