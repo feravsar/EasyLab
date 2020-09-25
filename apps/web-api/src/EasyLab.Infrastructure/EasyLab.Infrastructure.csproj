@@ -15,6 +15,10 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     <ProjectReference Include="..\EasyLab.Core\EasyLab.Core.csproj" />
 
+
+
+    <!--Shell Scripts-->
+    <Content Include="Scripts\*" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always"/>
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 using EasyLab.Core.Interfaces.UseCases.Course;
 using EasyLab.Core.Interfaces.UseCases.Student;
 using EasyLab.Core.Interfaces.UseCases.Teacher;
@@ -6,7 +8,7 @@ using EasyLab.Core.UseCases.Course;
 using EasyLab.Core.UseCases.Student;
 using EasyLab.Core.UseCases.Teacher;
 using EasyLab.Core.UseCases.User;
-using Microsoft.Extensions.DependencyInjection;
+
 namespace EasyLab.Core.Module
 {
     public static class IServiceCollectionExtension
@@ -24,6 +26,7 @@ namespace EasyLab.Core.Module
             services.AddTransient<IUserLoginHandler, UserLoginHandler>();
             services.AddTransient<IAddMemberHandler, AddMemberHandler>();
             services.AddTransient<IExchangeRefreshTokenHandler, ExchangeRefreshTokenHandler>();
+            services.AddTransient<IStartProjectHandler, StartProjectHandler>();
             return services;
         }
     }

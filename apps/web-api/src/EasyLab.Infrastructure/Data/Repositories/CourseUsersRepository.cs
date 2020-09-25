@@ -28,6 +28,11 @@ namespace EasyLab.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> IsUserEnrolledCourse(Guid courseId,Guid userId)
+        {
+            return await Queryable()
+                .AnyAsync(t=>t.CourseId == courseId && t.UserId == userId && !t.IsInstructor);
+        }
         
     }
 }

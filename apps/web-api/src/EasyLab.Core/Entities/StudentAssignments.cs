@@ -10,6 +10,8 @@ namespace EasyLab.Core.Entities
 
         public DateTime DateFinished { get; set; }
 
+        public DateTime DateStarted { get; set; }
+
         public double? Grade { get; set; }
 
 

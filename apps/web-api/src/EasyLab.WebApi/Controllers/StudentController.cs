@@ -14,11 +14,14 @@ namespace EasyLab.WebApi.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IGetEnrolledCoursesHandler _getEnrolledCoursesHandler;
+
+        private readonly IStartProjectHandler _startProjectHandler;
         private readonly BasePresenter _basePresenter;
 
-        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, BasePresenter basePresenter)
+        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, IStartProjectHandler startProjectHandler, BasePresenter basePresenter)
         {
             _getEnrolledCoursesHandler = getEnrolledCoursesHandler;
+            _startProjectHandler = startProjectHandler;
             _basePresenter = basePresenter;
         }
 
@@ -34,6 +37,25 @@ namespace EasyLab.WebApi.Controllers
             var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
             await _getEnrolledCoursesHandler.Handle(
                 new GetEnrolledCoursesRequest(new System.Guid(userId)),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+
+        
+        [HttpPost("StartProject")]
+        public async Task<ActionResult> StartProject(Models.Request.StartProjectRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+            
+            await _startProjectHandler.Handle(
+                new StartProjectRequest(request.AssignmentId,new Guid(userId)),
                 _basePresenter);
 
             return _basePresenter.ContentResult;
