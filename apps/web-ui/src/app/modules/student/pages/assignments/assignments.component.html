@@ -15,10 +15,10 @@
                     <p>{{assignment.language}} - Due:{{assignment.due | date :  "dd.MM.y h:mm"}}</p>
                 </div>
                 <div *ngIf="assignment.projectInfo" class="p1">
-                    <button type="button" class="btn btn-warning">Continue Coding</button>
+                    <button type="button" class="btn btn-warning"><i class="far fa-edit"></i>Continue Editing</button>
                 </div>
                 <div *ngIf="!assignment.projectInfo" class="p1">
-                    <button type="button" class="btn btn-success">Start Project</button>
+                    <button type="button" class="btn btn-success"><i class="fas fa-play"></i> Start Project</button>
                 </div>
             </li>
         </ul>

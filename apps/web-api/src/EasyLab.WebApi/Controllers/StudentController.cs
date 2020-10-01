@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyLab.WebApi.Controllers
 {
-    [Route("S")]
+    [Authorize(Roles = "STUDENT")]
+    [Route("[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {

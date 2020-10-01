@@ -38,7 +38,7 @@ namespace EasyLab.Core.UseCases.Auth
                     throw new UserNotFoundException(request.Email);
 
                 if (!user.EmailConfirmed)
-                    throw new EmailNotVerifiedException(user.Email);
+                    //throw new EmailNotVerifiedException(user.Email);
 
                 //if user and password matches
                 if (!(await _userRepository.CheckPassword(user, request.Password)))
@@ -52,7 +52,7 @@ namespace EasyLab.Core.UseCases.Auth
                 await _userRepository.Update(user);
 
                 //generating access token
-                AccessToken accessToken = await _jwtFactory.GenerateEncodedToken(user.Id.ToString(), user.UserName);
+                AccessToken accessToken = await _jwtFactory.GenerateEncodedToken(user.Id.ToString(), user.UserName, roles);
 
                 //return tokens
                 response = new UserLoginResponse(accessToken, refreshToken, user.Name, user.Surname, roles);

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     let user = this.tokenStorageService.getUser();
     if (user != null)
     {
-      if (user.roles.includes("Teacher")) {
+      if (user.roles.includes("TEACHER")) {
         this.router.navigate(["teacher"])
       }
       else {
@@ -40,10 +40,9 @@ export class LoginComponent implements OnInit {
     }
     ).subscribe(
       data => {
-        console.log(data);
         this.tokenStorageService.saveToken(data.accessToken.token);
         this.tokenStorageService.saveUser(data.userInfo);
-        if (data.userInfo.roles.includes("Teacher")) {
+        if (data.userInfo.roles.includes("TEACHER")) {
           this.router.navigate(["teacher"])
         }
         else {

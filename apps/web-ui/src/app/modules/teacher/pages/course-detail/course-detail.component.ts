@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from './../../../../core/services/course.service'
 import { Course } from '@data/schema/course';
+import { TeacherService } from '@app/services/teacher.service';
 import { Assignment } from '@data/schema/assingment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '@data/schema/user';
@@ -27,7 +27,7 @@ export class CourseDetailComponent implements OnInit {
   languageId: string;
 
 
-  constructor(private courseService: CourseService,
+  constructor(private teacherService: TeacherService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
   }
@@ -47,7 +47,7 @@ export class CourseDetailComponent implements OnInit {
     this.newAssignment.courseId = this.courseId;
     this.newAssignment.due = new Date(this.newAssignment.due);
 
-    this.courseService.createAssignmet(this.newAssignment).subscribe(
+    this.teacherService.createAssignmet(this.newAssignment).subscribe(
       data => {
         this.clearModal();
         this.getAssignments();
@@ -58,12 +58,12 @@ export class CourseDetailComponent implements OnInit {
     )
   }
   getAssignments() {
-    this.courseService.getAssignments(this.courseId)
+    this.teacherService.getAssignments(this.courseId)
       .subscribe(data => { this.assignments = data.assignments })
   }
 
   getCourseUsers(){
-    this.courseService.getMembers(this.courseId)
+    this.teacherService.getMembers(this.courseId)
       .subscribe(data => {this.users = data.courseUsers})
   }
 
@@ -74,8 +74,7 @@ export class CourseDetailComponent implements OnInit {
 
   onUserSelect($event){
     ($event).forEach(t=>{
-      console.log(t);
-      this.courseService.addMember({
+      this.teacherService.addMember({
         courseId : this.courseId,
         userId : t.id,
         isInstructor : false

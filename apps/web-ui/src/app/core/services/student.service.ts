@@ -14,11 +14,11 @@ export class StudentService {
 
 
   getCourses(): Observable<CourseList> {
-    return this.http.get<CourseList>(environment.API_URL + "S/Courses")
+    return this.http.get<CourseList>(environment.API_URL + "Student/Courses")
   }
 
   getAssignments(courseId: string): Observable<AssignmentList> {
-    return this.http.get<AssignmentList>(environment.API_URL + "S/GetProjects?courseId=" + courseId)
+    return this.http.get<AssignmentList>(environment.API_URL + "Student/GetProjects?courseId=" + courseId)
   }
 
 }

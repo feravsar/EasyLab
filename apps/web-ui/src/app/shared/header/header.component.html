@@ -1,8 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#"> <img src="/assets/img/logo.png" height="40px"></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+  <a class="navbar-brand"> <img src="/assets/img/logo.png" height="40px"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
+
+  <div class="collapse navbar-collapse flex-grow-0" style="padding-right: 20px;" id="navbarColor02">
+    <ul class="navbar-nav text-right">
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isTeachervisible" [routerLink]="'/teacher/courses'"><i class="fas fa-chalkboard-teacher"></i> Teach</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isStudentVisible" [routerLink]="'/student/home'"><i class="fas fa-school"></i> Learn</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Profile</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item"><i class="fas fa-info"></i> My Account</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
 
  
 </nav>

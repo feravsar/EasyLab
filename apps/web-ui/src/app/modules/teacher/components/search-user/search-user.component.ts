@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '@data/schema/user';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { UserService } from './../../../../core/services/user.service'
+import { TeacherService } from '@app/services/teacher.service'
 
 
 @Component({
@@ -21,7 +21,7 @@ export class SearchUserComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService) { }
+  constructor(private teacherService: TeacherService) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +31,7 @@ export class SearchUserComponent implements OnInit {
     debounceTime(250),
     distinctUntilChanged(),
     switchMap(searchTerm =>
-      this.userService.searchUser(searchTerm)
+      this.teacherService.searchUser(searchTerm)
     )).subscribe(
       data => this.users = data.users
     )

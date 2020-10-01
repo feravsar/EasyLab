@@ -235,9 +235,11 @@ namespace EasyLab.WebApi
                 c.SwaggerEndpoint(swaggerEndPoint, "EasyLab Api V1");
             });
 
-            app.UseRouting();
+    
 
             app.UseCors("AllowAny");
+
+            app.UseRouting();
 
             app.UseAuthentication();
 

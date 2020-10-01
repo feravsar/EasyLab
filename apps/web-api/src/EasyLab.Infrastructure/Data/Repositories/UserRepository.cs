@@ -33,16 +33,17 @@ namespace EasyLab.Infrastructure.Data.Repositories
                 Email = email,
                 UserName = username,
                 Name = name,
-                Surname = surname
+                Surname = surname,
             };
-
 
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, password);
 
             if (!identityResult.Succeeded)
+            {
                 return new CreateUserResponse(appUser.Id, false, identityResult.Errors.Select(e => new Error(e.Code, e.Description)));
+            }
 
-
+            var x = await _userManager.AddToRoleAsync(appUser, "STUDENT");
             return new CreateUserResponse(appUser.Id, identityResult.Succeeded, identityResult.Succeeded ? null : identityResult.Errors.Select(e => new Error(e.Code, e.Description)));
         }
 

@@ -28,7 +28,21 @@ export class TokenStorageService {
     window.sessionStorage.setItem(USER, JSON.stringify(user));
   }
 
+
   public getUser() {
     return JSON.parse(sessionStorage.getItem(USER));
   }
+
+
+  public isLoggedIn(){
+    return sessionStorage.getItem(USER) != null;
+  }
+
+  public getRoles()
+  {
+    return JSON.parse(sessionStorage.getItem(USER)).roles;
+  }
+
+
+
 }

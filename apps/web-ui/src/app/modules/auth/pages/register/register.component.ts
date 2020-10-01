@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AccountService } from 'src/app/core/services/account.service';
 import { Router } from '@angular/router';
 import { RegisterError } from 'src/app/shared/models/response/account/RegisterError'
 
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   errors: RegisterError = new RegisterError();
 
   constructor(
-    private authService: AuthService,
+    private accountService: AccountService,
     private router: Router) {
 
   }
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.register({
+    this.accountService.register({
       name: this.name,
       surname: this.surname,
       email: this.mail,
@@ -45,7 +45,6 @@ export class RegisterComponent implements OnInit {
         else {
           this.errors = e.error.errors;
         }
-
       });
   }
 }

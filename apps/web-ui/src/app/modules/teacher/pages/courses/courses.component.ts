@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from './../../../../core/services/course.service'
+import { TeacherService } from '@app/services/teacher.service'
 import { Course } from '@data/schema/course';
 import { Router } from '@angular/router';
 
@@ -16,11 +16,11 @@ export class CoursesComponent implements OnInit {
   name:string;
   description:string;
 
-  constructor(private courseService: CourseService,
+  constructor(private teacherService: TeacherService,
     private router:Router) { }
 
   ngOnInit(): void {
-    this.courseService.getCourses()
+    this.teacherService.getCourses()
       .subscribe(data => { this.courses = data.courses })
   }
 
@@ -29,7 +29,7 @@ export class CoursesComponent implements OnInit {
   }
 
   createNewCourse(){
-    this.courseService.addCourse({
+    this.teacherService.addCourse({
       name:this.name,
       description:this.description
     }).subscribe(

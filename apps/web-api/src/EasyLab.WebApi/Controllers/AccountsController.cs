@@ -59,19 +59,6 @@ namespace EasyLab.WebApi.Controllers
         }
 
 
-        [HttpGet("SearchUser")]
-        public async Task<ActionResult> SearchUser(string searchTerm)
-        {
-            if (String.IsNullOrWhiteSpace(searchTerm) || searchTerm.Length < 3)
-            {
-                return BadRequest(ModelState);
-            }
-            await _searchUserHandler.Handle(
-                new SearchUserRequest(
-                   searchTerm),
-                _basePresenter);
-
-            return _basePresenter.ContentResult;
-        }
+        
     }
 }

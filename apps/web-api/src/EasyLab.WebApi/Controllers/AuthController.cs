@@ -59,6 +59,7 @@ namespace EasyLab.WebApi.Controllers
         /// This method should be used when the API responded with the header Token-Expired. 
         /// If method returns Bad Request, according to error message, parameters should be checked or user should logged in again
         /// </summary>
+        [Microsoft.AspNetCore.Authorization.Authorize]
         [HttpPost("RefreshToken")]
         [ProducesResponseType(typeof(ExchangeRefreshTokenResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ExchangeRefreshTokenResponse), StatusCodes.Status200OK)]

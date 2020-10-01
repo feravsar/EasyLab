@@ -21,8 +21,6 @@ export class AuthService {
         return this.http.post(environment.API_URL + "Auth/Login", credentials)
     }
 
-    register(user): Observable<any> {
-        return this.http.post(environment.API_URL+ "Accounts/Register",user);
-    }
+
 
 }

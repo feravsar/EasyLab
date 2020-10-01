@@ -52,22 +52,24 @@ namespace EasyLab.Core.UseCases.Auth
 
                 //Getting user from repository
                 Claim id = claimsPrincipal.Claims.First(c => c.Type == "id");
-                
+
                 Entities.User user = await _userRepository.GetSingleBySpec(new UserSpecification(new Guid(id.Value)));
 
 
                 if (!user.HasValidRefreshToken(message.RefreshToken))
                     throw new InvalidRefreshTokenException();
 
+                List<string> roles = await _userRepository.GetUserRoles(user) as List<string>;
+
                 //generating new access token
-                var jwtToken = await _jwtFactory.GenerateEncodedToken(user.Id.ToString(), user.UserName);
+                var jwtToken = await _jwtFactory.GenerateEncodedToken(user.Id.ToString(), user.UserName, roles);
                 //generating new refresh token
                 var refreshToken = _tokenFactory.GenerateToken();
 
                 // delete the refresh token that exchanged
                 user.RemoveRefreshToken(message.RefreshToken);
                 // add the new one
-                user.AddRefreshToken(refreshToken, user.Id, ""); 
+                user.AddRefreshToken(refreshToken, user.Id, "");
                 await _userRepository.Update(user);
 
                 response = new ExchangeRefreshTokenResponse(jwtToken, refreshToken);

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import { AuthGuard } from '@app/helpers/auth-guard.guard';
 
 const routes: Routes = [
   {
@@ -12,11 +13,15 @@ const routes: Routes = [
   {
     path: 'student',
     component: ContentLayoutComponent,
-    loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule)
+    loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule),
+    canActivate:[AuthGuard], 
+    data:{role:'STUDENT'},
   },
   {
     path: 'teacher',
     component: ContentLayoutComponent,
+    canActivate:[AuthGuard], 
+    data:{role:'TEACHER'},
     loadChildren: () => import('./modules/teacher/teacher.module').then(m => m.TeacherModule)
   },
   {

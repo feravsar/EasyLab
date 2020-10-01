@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -22,28 +24,29 @@ namespace EasyLab.Infrastructure.Auth
             ThrowIfInvalidOptions(_jwtOptions);
         }
 
-        public async Task<AccessToken> GenerateEncodedToken(string id, string userName)
+        public async Task<AccessToken> GenerateEncodedToken(string id, string userName, List<string> userRoles)
         {
             var identity = GenerateClaimsIdentity(id, userName);
 
-            var claims = new[]
-            {
-                 new Claim(JwtRegisteredClaimNames.Sub, userName),
-                 new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
-                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
-                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id)
-             };
+            var roleClaims = userRoles.Select(t => new Claim(ClaimTypes.Role, t)).ToList();
+
+            roleClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, userName));
+            roleClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()));
+            roleClaims.Add(new Claim(ClaimTypes.Role, ""));
+            roleClaims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64));
+            roleClaims.Add(identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol));
+            roleClaims.Add(identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id));
+
 
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
-                _jwtOptions.Issuer,
-                _jwtOptions.Audience,
-                claims,
-                _jwtOptions.NotBefore,
-                _jwtOptions.Expiration,
-                _jwtOptions.SigningCredentials);
-          
+            _jwtOptions.Issuer,
+            _jwtOptions.Audience,
+                roleClaims.ToArray(),
+            _jwtOptions.NotBefore,
+            _jwtOptions.Expiration,
+            _jwtOptions.SigningCredentials);
+
             return new AccessToken(_jwtTokenHandler.WriteToken(jwt), (int)_jwtOptions.ValidFor.TotalSeconds);
         }
 
