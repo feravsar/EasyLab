@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   confirmPassword: string = null;
   name: string = null;
   surname: string = null;
+  username: string = null;
   errors: RegisterError = new RegisterError();
 
   constructor(
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.accountService.register({
+      username:this.username,
       name: this.name,
       surname: this.surname,
       email: this.mail,

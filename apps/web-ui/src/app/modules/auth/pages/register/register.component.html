@@ -4,22 +4,32 @@
             <img src="/assets/img/logo.png" style="height:120px;margin:0 auto;padding-top: 5px;">
             <h3><b>Register</b></h3>
             <div class="form-group">
+                <small *ngIf="username"> <i>Username</i></small>
+                <input [(ngModel)]="username" class="form-control" placeholder="Username">
+                <small *ngFor="let error of errors.Username" class="text-danger" > {{error}}</small>
+            </div>
+            <div class="form-group">
+                <small *ngIf="mail"> <i>Email</i></small>
                 <input [(ngModel)]="mail" class="form-control" placeholder="Email">
                 <small *ngFor="let error of errors.Email" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
+                <small *ngIf="name"> <i>Name</i></small>
                 <input [(ngModel)]="name" class="form-control" placeholder="Name">
                 <small *ngFor="let error of errors.Name" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
+                <small *ngIf="surname"> <i>Surname</i></small>
                 <input [(ngModel)]="surname" class="form-control" placeholder="Surname">
                 <small *ngFor="let error of errors.Surname" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
+                <small *ngIf="password"> <i>Password</i></small>
                 <input [(ngModel)]="password" type="password" class="form-control" placeholder="Password">
                 <small *ngFor="let error of errors.Password" class="text-danger" > {{error}}</small>
             </div>
             <div class="form-group">
+                <small *ngIf="confirmPassword"> <i>Confirm Password</i></small>
                 <input [(ngModel)]="confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
                 <small *ngFor="let error of errors.ConfirmPassword" class="text-danger" > {{error}}</small>
             </div>
