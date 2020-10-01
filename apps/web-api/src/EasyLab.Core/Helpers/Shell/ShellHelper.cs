@@ -42,7 +42,7 @@ public static class ShellHelper
             }
             else
             {
-                source.SetException(new Exception($"Command `{cmd}` failed with exit code `{process.ExitCode}`"));
+                source.SetException(new Exception($"Command `{cmd}` failed with exit code `{process.ExitCode}`" + response.Error));
             }
             process.Dispose();
         };

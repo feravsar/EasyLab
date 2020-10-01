@@ -10,8 +10,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
 
     
-    <!--Shell Scripts-->
-    <Content Include="Scripts\*" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
 </Project>

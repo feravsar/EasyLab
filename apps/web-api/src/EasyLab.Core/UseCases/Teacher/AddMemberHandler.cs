@@ -1,7 +1,8 @@
 using System;
-using System.Threading.Tasks;
 using System.Linq;
-using EasyLab.Core.Dto.UseCaseRequests;
+using System.Threading.Tasks;
+
+using EasyLab.Core.Dto.UseCaseRequests.Teacher;
 using EasyLab.Core.Dto.UseCaseResponses;
 using EasyLab.Core.Interfaces.Gateways.Repositories;
 using EasyLab.Core.Interfaces.UseCases;
@@ -36,7 +37,7 @@ namespace EasyLab.Core.UseCases.Teacher
                     throw new Exception("You're not authorized for this operation.");
             }
 
-            course.Users.Add(new Entities.CourseUsers
+            course.Users.Add(new Entities.CourseUser
             {
                 IsInstructor = request.IsInstructor,
                 UserId = request.UserId

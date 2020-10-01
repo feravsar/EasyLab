@@ -23,10 +23,10 @@ namespace EasyLab.Infrastructure.Data
 
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<CourseUsers> CourseUsers { get; set; }
+        public DbSet<CourseUser> CourseUserMap { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<StudentAssignments> StudentAssignments { get; set; }
+        public DbSet<Core.Entities.Project> Projects { get; set; }
 
         #endregion
 
@@ -39,10 +39,10 @@ namespace EasyLab.Infrastructure.Data
 
             modelBuilder.Entity<Assignment>(ConfigureAssignment);
             modelBuilder.Entity<Course>(ConfigureCourse);
-            modelBuilder.Entity<CourseUsers>(ConfigureCourseUsers);
+            modelBuilder.Entity<CourseUser>(ConfigureCourseUser);
             modelBuilder.Entity<Language>(ConfigureLanguage);
             modelBuilder.Entity<RefreshToken>(ConfigureRefreshToken);
-            modelBuilder.Entity<StudentAssignments>(ConfigureStudentAssignments);
+            modelBuilder.Entity<Core.Entities.Project>(this.ConfigureProject);
             modelBuilder.Entity<User>(ConfigureUser);
         }
 
@@ -76,7 +76,7 @@ namespace EasyLab.Infrastructure.Data
             entity.Property(t => t.Id).ValueGeneratedOnAdd();
         }
 
-        public void ConfigureCourseUsers(EntityTypeBuilder<CourseUsers> entity)
+        public void ConfigureCourseUser(EntityTypeBuilder<CourseUser> entity)
         {
             entity.HasKey(t => new { t.UserId, t.CourseId, t.IsInstructor });
 
@@ -108,18 +108,22 @@ namespace EasyLab.Infrastructure.Data
                 .HasConstraintName("FK_User_RefreshToken");
         }
 
-        public void ConfigureStudentAssignments(EntityTypeBuilder<StudentAssignments> entity)
+        public void ConfigureProject(EntityTypeBuilder<Core.Entities.Project> entity)
         {
-            entity.HasKey(t => new { t.UserId, t.AssignmentId });
+
+            entity.HasKey(t => t.ProjectId);
+
+            entity.HasIndex(t => new { t.UserId, t.AssignmentId })
+            .IsUnique();
 
             entity.HasOne(t => t.Assignment)
-                .WithMany(t => t.StudentAssignments)
+                .WithMany(t => t.Projects)
                 .HasForeignKey(t => t.AssignmentId)
                 .HasConstraintName("FK_Assignment_StudentAssignments")
                 .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(t => t.User)
-                .WithMany(t => t.StudentAssignments)
+                .WithMany(t => t.Projects)
                 .HasForeignKey(t => t.UserId)
                 .HasConstraintName("FK_Assignment_UserAssignments")
                 .OnDelete(DeleteBehavior.Restrict);

@@ -10,7 +10,7 @@ using AutoMapper;
 using EasyLab.Core.Specifications;
 using System;
 using System.Collections.Generic;
-using EasyLab.Core.Dto.Course;
+using EasyLab.Core.Dto.Entity;
 
 namespace EasyLab.Infrastructure.Data.Repositories
 {
@@ -20,19 +20,19 @@ namespace EasyLab.Infrastructure.Data.Repositories
         {
         }
 
-        public async Task<List<CourseInfo>> GetAuthoredCourses(Guid authorId)
+        public async Task<List<CourseDto>> GetAuthoredCourses(Guid authorId)
         {
             return await Queryable()
               .Where(t => (t.AuthorId == authorId) || t.Users.Any(a=>a.IsInstructor && a.UserId == authorId))
-              .Select(t => new CourseInfo(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
+              .Select(t => new CourseDto(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
               .ToListAsync();
         }
 
-         public async Task<List<CourseInfo>> GetEnrolledCourses(Guid userId)
+         public async Task<List<CourseDto>> GetEnrolledCourses(Guid userId)
         {
             return await Queryable()
               .Where(t =>  t.Users.Any(a=> !a.IsInstructor && a.UserId == userId))
-              .Select(t => new CourseInfo(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
+              .Select(t => new CourseDto(t.Id, t.Name, t.Description, t.DateCreated, t.Users.Count))
               .ToListAsync();
         }
         

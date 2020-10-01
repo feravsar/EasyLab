@@ -10,7 +10,7 @@ using AutoMapper;
 using EasyLab.Core.Specifications;
 using System;
 using System.Collections.Generic;
-using EasyLab.Core.Dto.User;
+using EasyLab.Core.Dto.Entity;
 
 namespace EasyLab.Infrastructure.Data.Repositories
 {
@@ -26,12 +26,12 @@ namespace EasyLab.Infrastructure.Data.Repositories
             _mapper = mapper;
         }
 
-        public async Task<CreateUserResponse> Create(string name, string surname, string email, string password)
+        public async Task<CreateUserResponse> Create(string username, string name, string surname, string email, string password)
         {
             User appUser = new User
             {
                 Email = email,
-                UserName = email,
+                UserName = username,
                 Name = name,
                 Surname = surname
             };
@@ -82,14 +82,14 @@ namespace EasyLab.Infrastructure.Data.Repositories
             return await _userManager.GetRolesAsync(user);
         }
 
-        public async Task<List<UserInfo>> Search(string searchTerm)
+        public async Task<List<UserDto>> Search(string searchTerm)
         {
             return await Queryable().Where(t =>
                 EF.Functions.Like(t.Name, "%" + searchTerm + "%") ||
                 EF.Functions.Like(t.Surname, "%" + searchTerm + "%") ||
                 EF.Functions.Like(t.Email, "%" + searchTerm + "%") ||
                 EF.Functions.Like(t.UserName, "%" + searchTerm + "%"))
-                .Select(t => new UserInfo(t.Id, t.Email, t.UserName, t.Name, t.Surname))
+                .Select(t => new UserDto(t.Id, t.Email, t.UserName, t.Name, t.Surname))
                 .Take(50)
                 .ToListAsync();
         }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { studentCourse } from './../../../../shared/models/studentCourse';
-import { StudentService } from './../../../../core/services/student-services/student.service'
+import { StudentService } from './../../../../core/services/student.service'
+import { Course } from '@data/schema/course';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,13 +12,17 @@ import { StudentService } from './../../../../core/services/student-services/stu
 })
 export class StudentHomeComponent implements OnInit {
 
-  StudentCourses : studentCourse [] ;
+  courses: Course[];
 
-  constructor(private studentService : StudentService) {}
+  constructor(private router: Router, private studentService: StudentService) { }
 
-  ngOnInit(): void
-  {
-    this.StudentCourses = this.studentService.getstudentCourse();
+  ngOnInit(): void {
+    this.studentService.getCourses()
+      .subscribe(data => { this.courses = data.courses });
   }
 
+
+  courseDetail(course) {
+    this.router.navigate(['student/assignments', course.id], { state: course })
+  }
 }

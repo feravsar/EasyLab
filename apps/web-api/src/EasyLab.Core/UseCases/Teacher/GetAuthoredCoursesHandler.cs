@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using EasyLab.Core.Dto;
-using EasyLab.Core.Dto.UseCaseRequests;
-using EasyLab.Core.Dto.UseCaseResponses;
+using EasyLab.Core.Dto.UseCaseRequests.Teacher;
+using EasyLab.Core.Dto.UseCaseResponses.Teacher;
 using EasyLab.Core.Helpers.Exceptions;
 using EasyLab.Core.Interfaces.Gateways.Repositories;
 using EasyLab.Core.Interfaces.UseCases;
-using EasyLab.Core.Interfaces.UseCases.Course;
 using EasyLab.Core.Interfaces.UseCases.Teacher;
 
 namespace EasyLab.Core.UseCases.Teacher

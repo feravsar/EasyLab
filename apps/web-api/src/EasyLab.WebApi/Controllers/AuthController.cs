@@ -1,12 +1,14 @@
 using System.Threading.Tasks;
-using EasyLab.Core.Dto.UseCaseRequests;
-using EasyLab.Core.Dto.UseCaseResponses;
-using EasyLab.Core.Interfaces.UseCases.User;
-using EasyLab.WebApi.Models.Settings;
-using EasyLab.WebApi.Presenters;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+
+using EasyLab.Core.Dto.UseCaseRequests.Auth;
+using EasyLab.Core.Dto.UseCaseResponses.Auth;
+using EasyLab.Core.Interfaces.UseCases.Auth;
+using EasyLab.WebApi.Models.Settings;
+using EasyLab.WebApi.Presenters;
 
 namespace EasyLab.WebApi.Controllers
 {

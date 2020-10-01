@@ -24,9 +24,9 @@ namespace EasyLab.Core.Entities
 
         public virtual List<Assignment> Assignments { get; set; }
 
-        public virtual List<CourseUsers> Courses { get; set; }
+        public virtual List<CourseUser> Courses { get; set; }
 
-        public virtual List<StudentAssignments> StudentAssignments { get; set; }
+        public virtual List<Project> Projects { get; set; }
 
         public bool HasValidRefreshToken(string refreshToken)
         {

@@ -1,5 +1,5 @@
-using EasyLab.Core.Dto.UseCaseRequests;
-using EasyLab.Core.Dto.UseCaseResponses;
+using EasyLab.Core.Dto.UseCaseRequests.Teacher;
+using EasyLab.Core.Dto.UseCaseResponses.Teacher;
 
 namespace EasyLab.Core.Interfaces.UseCases.Teacher{
 

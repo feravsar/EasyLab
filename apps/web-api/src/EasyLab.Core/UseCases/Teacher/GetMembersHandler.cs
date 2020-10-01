@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using EasyLab.Core.Dto.UseCaseRequests;
-using EasyLab.Core.Dto.UseCaseResponses;
+using EasyLab.Core.Dto.UseCaseRequests.Teacher;
+using EasyLab.Core.Dto.UseCaseResponses.Teacher;
 using EasyLab.Core.Interfaces.Gateways.Repositories;
 using EasyLab.Core.Interfaces.UseCases;
 using EasyLab.Core.Interfaces.UseCases.Teacher;
@@ -10,11 +10,11 @@ namespace EasyLab.Core.UseCases.Teacher
 {
     public sealed class GetMembersHandler : IGetMembersHandler
     {
-        private readonly ICourseUsersRepository _courseUsersRepository;
+        private readonly ICourseUserRepository _courseUsersRepository;
 
         private readonly ICourseRepository _courseRepository;
 
-        public GetMembersHandler(ICourseUsersRepository courseUsersRepository, ICourseRepository courseRepository)
+        public GetMembersHandler(ICourseUserRepository courseUsersRepository, ICourseRepository courseRepository)
         {
             _courseUsersRepository = courseUsersRepository;
             _courseRepository = courseRepository;

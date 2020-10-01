@@ -30,6 +30,6 @@ namespace EasyLab.Core.Entities
 
         public virtual Language Language { get; set; }
 
-        public virtual List<StudentAssignments> StudentAssignments { get; set; }
+        public virtual List<Project> Projects { get; set; }
     }
 }

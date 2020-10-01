@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using EasyLab.Core.Dto.UseCaseRequests;
-using EasyLab.Core.Dto.UseCaseResponses;
+using EasyLab.Core.Dto.UseCaseRequests.Student;
+using EasyLab.Core.Dto.UseCaseResponses.Student;
 using EasyLab.Core.Interfaces.Gateways.Repositories;
 using EasyLab.Core.Interfaces.UseCases;
 using EasyLab.Core.Interfaces.UseCases.Student;

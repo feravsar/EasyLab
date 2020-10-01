@@ -1,3 +1,5 @@
+import { Project } from './project';
+
 export class Assignment {
 
     public id: string;
@@ -9,5 +11,6 @@ export class Assignment {
     public description: string;
     public language: string;
     public languageId: number;
+    public projectInfo: Project;
 
 }

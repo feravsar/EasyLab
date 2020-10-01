@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using EasyLab.Core.Dto.UseCaseRequests;
+using EasyLab.Core.Dto.UseCaseRequests.Student;
 using EasyLab.Core.Dto.UseCaseResponses;
 using EasyLab.Core.Interfaces.Gateways.Repositories;
 using EasyLab.Core.Interfaces.Services;
@@ -15,11 +15,11 @@ namespace EasyLab.Core.UseCases.Student
         
         private readonly IAssignmentRepository _assignmentRepository;
 
-        private readonly ICourseUsersRepository _courseUsersRepository;
+        private readonly ICourseUserRepository _courseUsersRepository;
 
-        private readonly IStudentAssignmentsRepository _studentAssignmentsRepository;
+        private readonly IProjectRepository _studentAssignmentsRepository;
 
-        public StartProjectHandler(IProjectFactory projectFactory, IAssignmentRepository assignmentRepository, ICourseUsersRepository courseUsersRepository, IStudentAssignmentsRepository studentAssignmentsRepository)
+        public StartProjectHandler(IProjectFactory projectFactory, IAssignmentRepository assignmentRepository, ICourseUserRepository courseUsersRepository, IProjectRepository studentAssignmentsRepository)
         {
             _projectFactory = projectFactory;
             _assignmentRepository = assignmentRepository;
@@ -42,7 +42,7 @@ namespace EasyLab.Core.UseCases.Student
 
             await _projectFactory.CreateProject(assignment.CourseId.ToString(), assignment.Id.ToString(), request.UserId.ToString());
 
-            await _studentAssignmentsRepository.Add(new Entities.StudentAssignments{
+            await _studentAssignmentsRepository.Add(new Entities.Project{
                 AssignmentId = assignment.Id,
                 UserId = request.UserId,
                 DateStarted = DateTime.UtcNow

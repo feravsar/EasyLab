@@ -7,7 +7,7 @@ namespace EasyLab.Core.Entities
     {
         public Course(){
             Assignments = new List<Assignment>();
-            Users = new List<CourseUsers>();
+            Users = new List<CourseUser>();
             DateCreated = DateTime.UtcNow;
         }
         public Guid Id { get; set; }
@@ -27,6 +27,6 @@ namespace EasyLab.Core.Entities
 
         public virtual List<Assignment> Assignments { get; set; }
 
-        public virtual List<CourseUsers> Users { get; set; }
+        public virtual List<CourseUser> Users { get; set; }
     }
 }

@@ -17,3 +17,14 @@
   .jumbotron .container {
     max-width: 40rem;
   }
+
+
+  .cstm-height-card .card-img-top {
+    height: 100px;
+    object-fit: cover;
+  }
+
+form{
+  margin-top: 20px;
+}
+

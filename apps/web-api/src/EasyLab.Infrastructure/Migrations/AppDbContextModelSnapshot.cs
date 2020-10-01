@@ -88,7 +88,7 @@ namespace EasyLab.Infrastructure.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("EasyLab.Core.Entities.CourseUsers", b =>
+            modelBuilder.Entity("EasyLab.Core.Entities.CourseUser", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -106,7 +106,7 @@ namespace EasyLab.Infrastructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseUsers");
+                    b.ToTable("CourseUserMap");
                 });
 
             modelBuilder.Entity("EasyLab.Core.Entities.Language", b =>
@@ -122,6 +122,37 @@ namespace EasyLab.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("EasyLab.Core.Entities.Project", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AssignmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateFinished")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStarted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Grade")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProjectId");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("UserId", "AssignmentId")
+                        .IsUnique();
+
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("EasyLab.Core.Entities.RefreshToken", b =>
@@ -153,30 +184,6 @@ namespace EasyLab.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("EasyLab.Core.Entities.StudentAssignments", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AssignmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateFinished")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateStarted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double?>("Grade")
-                        .HasColumnType("float");
-
-                    b.HasKey("UserId", "AssignmentId");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.ToTable("StudentAssignments");
                 });
 
             modelBuilder.Entity("EasyLab.Core.Entities.User", b =>
@@ -424,7 +431,7 @@ namespace EasyLab.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EasyLab.Core.Entities.CourseUsers", b =>
+            modelBuilder.Entity("EasyLab.Core.Entities.CourseUser", b =>
                 {
                     b.HasOne("EasyLab.Core.Entities.Course", "Course")
                         .WithMany("Users")
@@ -441,6 +448,23 @@ namespace EasyLab.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EasyLab.Core.Entities.Project", b =>
+                {
+                    b.HasOne("EasyLab.Core.Entities.Assignment", "Assignment")
+                        .WithMany("Projects")
+                        .HasForeignKey("AssignmentId")
+                        .HasConstraintName("FK_Assignment_StudentAssignments")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EasyLab.Core.Entities.User", "User")
+                        .WithMany("Projects")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_Assignment_UserAssignments")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EasyLab.Core.Entities.RefreshToken", b =>
                 {
                     b.HasOne("EasyLab.Core.Entities.User", "User")
@@ -448,23 +472,6 @@ namespace EasyLab.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_User_RefreshToken")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EasyLab.Core.Entities.StudentAssignments", b =>
-                {
-                    b.HasOne("EasyLab.Core.Entities.Assignment", "Assignment")
-                        .WithMany("StudentAssignments")
-                        .HasForeignKey("AssignmentId")
-                        .HasConstraintName("FK_Assignment_StudentAssignments")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("EasyLab.Core.Entities.User", "User")
-                        .WithMany("StudentAssignments")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK_Assignment_UserAssignments")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EasyLab.Core.Dto.UseCaseRequests;
+using EasyLab.Core.Dto.UseCaseRequests.Student;
 using EasyLab.Core.Interfaces.UseCases.Student;
 using EasyLab.WebApi.Presenters;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +14,14 @@ namespace EasyLab.WebApi.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IGetEnrolledCoursesHandler _getEnrolledCoursesHandler;
-
+        private readonly IGetProjectsHandler _getProjectsHandler;
         private readonly IStartProjectHandler _startProjectHandler;
         private readonly BasePresenter _basePresenter;
 
-        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, IStartProjectHandler startProjectHandler, BasePresenter basePresenter)
+        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, IGetProjectsHandler getProjectsHandler, IStartProjectHandler startProjectHandler, BasePresenter basePresenter)
         {
             _getEnrolledCoursesHandler = getEnrolledCoursesHandler;
+            _getProjectsHandler = getProjectsHandler;
             _startProjectHandler = startProjectHandler;
             _basePresenter = basePresenter;
         }
@@ -43,7 +44,7 @@ namespace EasyLab.WebApi.Controllers
         }
 
 
-        
+
         [HttpPost("StartProject")]
         public async Task<ActionResult> StartProject(Models.Request.StartProjectRequest request)
         {
@@ -53,9 +54,28 @@ namespace EasyLab.WebApi.Controllers
             }
 
             var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
-            
+
             await _startProjectHandler.Handle(
-                new StartProjectRequest(request.AssignmentId,new Guid(userId)),
+                new StartProjectRequest(request.AssignmentId, new Guid(userId)),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+
+        [Authorize]
+        [HttpGet("GetProjects")]
+        public async Task<ActionResult> GetProjects(Guid courseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _getProjectsHandler.Handle(
+                new GetProjectsRequest(new Guid(userId), courseId),
                 _basePresenter);
 
             return _basePresenter.ContentResult;

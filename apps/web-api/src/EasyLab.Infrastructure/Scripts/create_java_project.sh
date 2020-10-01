@@ -6,9 +6,9 @@ then
         exit 1
 fi
 
-mkdir -p /srv/easy-lab/$1/$2/$3/{src,bin}
+mkdir -p /home/20195175002/$1/$2/$3/{src,bin}
 
-cd /srv/easy-lab/$1/$2/$3/src/
+cd /home/20195175002/$1/$2/$3/src/
 
 touch App.java
 

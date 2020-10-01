@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import {StudentHomeComponent} from './pages/student-home/student-home.component'
 import {StudentRoutingModule} from './student-routing.module';
-import { ProjectComponent } from './pages/project/project.component'
+import { ProjectComponent } from './pages/project/project.component';
+import { AssignmentsComponent } from './pages/assignments/assignments.component'
 
 @NgModule({
-  declarations: [StudentHomeComponent, ProjectComponent],
+  declarations: [StudentHomeComponent, ProjectComponent, AssignmentsComponent],
   imports: [
     CommonModule, 
     StudentRoutingModule

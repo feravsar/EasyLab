@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <h4>{{courseInfo.name}}</h4>
+        </div>
+
+    </div>
+
+    <div class="p-2">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let assignment of assignments">
+                <div class="p-1">
+                    <h4>{{assignment.title}} <small>({{assignment.author}})</small></h4>
+                    <p>{{assignment.language}} - Due:{{assignment.due | date :  "dd.MM.y h:mm"}}</p>
+                </div>
+                <div *ngIf="assignment.projectInfo" class="p1">
+                    <button type="button" class="btn btn-warning">Continue Coding</button>
+                </div>
+                <div *ngIf="!assignment.projectInfo" class="p1">
+                    <button type="button" class="btn btn-success">Start Project</button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>

@@ -17,8 +17,8 @@ namespace EasyLab.Infrastructure.Module
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
-            services.AddTransient<ICourseUsersRepository, CourseUsersRepository>();
-            services.AddTransient<IStudentAssignmentsRepository, StudentAssignmentsRepository>();
+            services.AddTransient<ICourseUserRepository, CourseUserRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
 
             #endregion
             
