@@ -5,8 +5,11 @@ namespace EasyLab.Core.Interfaces.Services
 {
     public interface IProjectFactory
     {
-        Task<BashResponse> CreateProject(string courseId, string assignmentId, string userId);
-
+        Task<BashResponse> BuildProject(string username, string projectId);
+        Task<BashResponse> RunProject(string username, string projectId);
+        Task<BashResponse> CreateProject(string username, string projectId);
+        Task<BashResponse> GetFileContent(string username, string projectId, string fileName);
         Task<BashResponse> CreateUser(string username);
+        Task<BashResponse> UpdateDocument(string username, string projectId, string fileName, string fileContent);
     }
 }

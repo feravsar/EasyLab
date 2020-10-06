@@ -5,4 +5,4 @@ then
         exit 1
 fi
 
-sudo useradd $1 -d /srv/easylab/$1 -m -N -s /bin/false 
+sudo useradd $1 -d /srv/easylab/$1 -m -N -s /bin/false -g student

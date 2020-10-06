@@ -1,19 +1,17 @@
 #!/bin/bash
 
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+if [ -z $1 ] || [ -z $2 ]
 then
-        echo "missing parameters: CourseId, AssignmentId and ProjectId is required"
+        echo "missing parameter: Username and ProjectId is required"
         exit 1
 fi
 
-mkdir -p /home/20195175002/$1/$2/$3/{src,bin}
+mkdir -p /srv/easylab/$1/$2/{src,bin}
 
-cd /home/20195175002/$1/$2/$3/src/
-
-touch App.java
+touch /srv/easylab/$1/$2/src/App.java
 
 echo "public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
     }
-}" > App.java
+}" > /srv/easylab/$1/$2/src/App.java

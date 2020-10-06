@@ -11,6 +11,6 @@ export class Assignment {
     public description: string;
     public language: string;
     public languageId: number;
-    public projectInfo: Project;
+    public project: Project;
 
 }

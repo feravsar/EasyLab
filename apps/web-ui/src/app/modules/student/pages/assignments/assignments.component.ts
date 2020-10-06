@@ -28,10 +28,26 @@ export class AssignmentsComponent implements OnInit {
     this.studentService.getAssignments(this.courseId)
       .subscribe(t => {
         this.assignments = t.assignments
-        },
+      },
         err => {
           console.log(err)
         })
+  }
+
+  startProject(assignmentId) {
+    this.studentService.startProject({ assignmentId: assignmentId })
+      .subscribe(data => {
+        console.log(data)
+      },
+        err => {
+          console.log(err)
+        })
+  }
+
+  continueEditing(projectId) {
+    this.router.navigate(['student/project',projectId]);
+
+ 
   }
 
 }

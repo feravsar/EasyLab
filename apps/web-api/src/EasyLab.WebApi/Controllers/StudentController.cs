@@ -17,14 +17,23 @@ namespace EasyLab.WebApi.Controllers
         private readonly IGetEnrolledCoursesHandler _getEnrolledCoursesHandler;
         private readonly IGetProjectsHandler _getProjectsHandler;
         private readonly IStartProjectHandler _startProjectHandler;
+        private readonly IGetFileContentHandler _getFileContentHandler;
+        private readonly IBuildProjectHandler _buildProjectHandler;
+        private readonly IUpdateDocumentHandler _updateDocumentHandler;
+        private readonly IRunProjectHandler _runProjectHandler;
         private readonly BasePresenter _basePresenter;
 
-        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, IGetProjectsHandler getProjectsHandler, IStartProjectHandler startProjectHandler, BasePresenter basePresenter)
+
+        public StudentController(IGetEnrolledCoursesHandler getEnrolledCoursesHandler, IGetProjectsHandler getProjectsHandler, IStartProjectHandler startProjectHandler, BasePresenter basePresenter, IBuildProjectHandler buildProjectHandler, IGetFileContentHandler getFileContentHandler, IRunProjectHandler runProjectHandler, IUpdateDocumentHandler updateDocumentHandler)
         {
             _getEnrolledCoursesHandler = getEnrolledCoursesHandler;
             _getProjectsHandler = getProjectsHandler;
             _startProjectHandler = startProjectHandler;
             _basePresenter = basePresenter;
+            _buildProjectHandler = buildProjectHandler;
+            _getFileContentHandler = getFileContentHandler;
+            _runProjectHandler = runProjectHandler;
+            _updateDocumentHandler = updateDocumentHandler;
         }
 
         [Authorize]
@@ -63,6 +72,23 @@ namespace EasyLab.WebApi.Controllers
             return _basePresenter.ContentResult;
         }
 
+        [HttpPost("BuildProject")]
+        public async Task<ActionResult> BuildProject(Models.Request.BuildProjectRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _buildProjectHandler.Handle(
+                new BuildProjectRequest(request.ProjectId, new Guid(userId)),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
 
         [Authorize]
         [HttpGet("GetProjects")]
@@ -77,6 +103,60 @@ namespace EasyLab.WebApi.Controllers
 
             await _getProjectsHandler.Handle(
                 new GetProjectsRequest(new Guid(userId), courseId),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+        [Authorize]
+        [HttpGet("GetFileContent")]
+        public async Task<ActionResult> GetFileContent(Guid projectId, string fileName = "App.java")
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _getFileContentHandler.Handle(
+                new GetFileContentRequest(new Guid(userId), projectId, fileName),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+        [Authorize]
+        [HttpPost("RunProject")]
+        public async Task<ActionResult> RunProject(Models.Request.RunProjectRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _runProjectHandler.Handle(
+                new RunProjectRequest(request.ProjectId, new Guid(userId)),
+                _basePresenter);
+
+            return _basePresenter.ContentResult;
+        }
+
+        [Authorize]
+        [HttpPost("UpdateDocument")]
+        public async Task<ActionResult> UpdateDocument(Models.Request.UpdateDocumentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Claims.FirstOrDefault(t => t.Type == "id")?.Value;
+
+            await _updateDocumentHandler.Handle(
+                new UpdateDocumentRequest(new Guid(userId),request.ProjectId,request.FileName, request.FileContent),
                 _basePresenter);
 
             return _basePresenter.ContentResult;

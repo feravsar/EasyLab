@@ -9,7 +9,7 @@ public static class ShellHelper
 {
     public static Task<BashResponse> Bash(this string cmd)
     {
-  
+
         var source = new TaskCompletionSource<BashResponse>();
         BashResponse response = new BashResponse();
         var escapedArgs = cmd.Replace("\"", "\\\"");
@@ -38,12 +38,10 @@ public static class ShellHelper
             if (process.ExitCode == 0)
             {
                 response.success = true;
-                source.SetResult(response);
+
             }
-            else
-            {
-                source.SetException(new Exception($"Command `{cmd}` failed with exit code `{process.ExitCode}`" + response.Error));
-            }
+
+            source.SetResult(response);
             process.Dispose();
         };
 
@@ -58,4 +56,7 @@ public static class ShellHelper
         }
         return source.Task;
     }
+
+  
+
 }

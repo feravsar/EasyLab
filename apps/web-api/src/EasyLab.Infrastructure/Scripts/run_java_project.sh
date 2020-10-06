@@ -6,5 +6,5 @@ then
         exit 1
 fi
 
-cd /srv/easylab/$1/$2
-javac -d bin/ $(find . -name "*.java");
+cd /srv/easylab/$1/$2/bin  
+java App

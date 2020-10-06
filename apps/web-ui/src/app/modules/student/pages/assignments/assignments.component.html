@@ -14,11 +14,11 @@
                     <h4>{{assignment.title}} <small>({{assignment.author}})</small></h4>
                     <p>{{assignment.language}} - Due:{{assignment.due | date :  "dd.MM.y h:mm"}}</p>
                 </div>
-                <div *ngIf="assignment.projectInfo" class="p1">
-                    <button type="button" class="btn btn-warning"><i class="far fa-edit"></i>Continue Editing</button>
+                <div *ngIf="assignment.project" class="p1">
+                    <button type="button" class="btn btn-warning" (click)="continueEditing(assignment.project.projectId)"><i class="far fa-edit"></i>Continue Editing</button>
                 </div>
-                <div *ngIf="!assignment.projectInfo" class="p1">
-                    <button type="button" class="btn btn-success"><i class="fas fa-play"></i> Start Project</button>
+                <div *ngIf="!assignment.project" class="p1">
+                    <button type="button" class="btn btn-success" (click)="startProject(assignment.id)"><i class="fas fa-play"></i> Start Project</button>
                 </div>
             </li>
         </ul>

@@ -21,4 +21,24 @@ export class StudentService {
     return this.http.get<AssignmentList>(environment.API_URL + "Student/GetProjects?courseId=" + courseId)
   }
 
+  startProject(data:object): Observable<any>{
+    return this.http.post<any>(environment.API_URL + "Student/StartProject",data);
+  }
+
+  buildProject(data:object): Observable<any>{
+    return this.http.post<any>(environment.API_URL + "Student/BuildProject",data);
+  }
+
+  getFileContent(projectId: string, fileName:string): Observable<any>{
+    return this.http.get<any>(environment.API_URL + "Student/GetFileContent?projectId="+projectId+"&fileName="+fileName);
+  }
+
+  runProject(data:object): Observable<any>{
+    return this.http.post<any>(environment.API_URL + "Student/RunProject",data);
+  }
+
+  updateDocument(data:object): Observable<any>{
+    return this.http.post<any>(environment.API_URL + "Student/UpdateDocument",data);
+  }
+
 }
