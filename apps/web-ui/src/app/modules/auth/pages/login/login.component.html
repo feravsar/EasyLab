@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-3 min-wh-400">
+        <div class="card card-container padding-horizontal-30">
+            <img src="/assets/img/logo.png" style="height:120px;margin:0 auto;padding-top: 5px;">
+            <h3><b>Login</b></h3>
+            <div class="form-group">
+                <small *ngIf="username"> <i>Username</i></small>
+                <input [(ngModel)]="username" class="form-control" placeholder="Username">
+                <small *ngFor="let error of errors.Username" class="text-danger"> {{error}}</small>
+            </div>
+            <div class="form-group">
+                <small *ngIf="password"> <i>Password</i></small>
+                <input [(ngModel)]="password" type="password" class="form-control" placeholder="Password">
+                <small *ngFor="let error of errors.Password" class="text-danger"> {{error}}</small>
+            </div>
+            <div>
+                <small>No account? </small><a routerLink="/auth/register"><small>Create one!</small></a>
+            </div>
+            <small *ngFor="let error of errors.CustomErrors" class="text-danger"> {{error.description}}</small>
+            <div class="form-group">
+                <button type="button" (click)="onSubmit()" class="btn btn-primary float-right">Log in</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,93 +1,56 @@
-<p>courses works!</p>
 <div class="container">
+	<div class="d-flex justify-content-between">
+		<div class="p-2">
+			<h4>My Courses</h4>
+		</div>
+		<div class="p-2">
+			<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"> <i
+					class="fas fa-plus"></i> New Course</button>
+		</div>
+	</div>
 
-    <!-- 
-    <table class="table table-danger">
-        <tr>
-            <th></th>
-            <th>Course ID</th>
-            <th>Course Name</th>
-        </tr>
-        <tr *ngFor="let course of courses; index as i">
-            <td>{{i+1}}</td>
-            <td>{{course.courseId}}</td>
-            <td>{{course.courseName}}</td>
-        </tr>
-    </table>
-    -->
-
-
-      
-		
-		<div class="row mb-5 cstm-height-card">
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1200x900" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Computer Programming</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1500x800" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Computer Networks </h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1400x700" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Software Engineering</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-						<button onclick="window.location.href='b.php'">Click me</button>
-					</div>
+	<div class="row mb-5 cstm-height-card">
+		<div class="col-md-4 p-2" *ngFor="let course of courses; index as i">
+			<div class="card" style="cursor: pointer; height: 300px;" (click)="courseDetail(course)">
+				<img src="https://source.unsplash.com/400x300/?coding,programming" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">{{course.name}}</h5>
+					<p class="card-text">{{course.description}}</p>
+					<p> <small>{{course.studentsEnrolled}} students</small></p>
 				</div>
 			</div>
 		</div>
-		<div class="row mb-5 cstm-height-card">
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1200x900" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Computer Programming</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-					</div>
+	</div>
+</div>
+
+
+
+<!-- Add new course modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Create a new course!</h5>
+				<button type="button" class="close" data-dismiss="modal" (click)="clearModal()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<small *ngIf="name"><i>Name</i></small>
+					<input [(ngModel)]="name" class="form-control" placeholder="Name">
+				</div>
+				<div class="form-group">
+					<small *ngIf="description"> <i>Description</i></small>
+					<input [(ngModel)]="description" class="form-control" placeholder="Description">
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1500x800" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Computer Networks </h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="card">
-					<img src="https://source.unsplash.com/random/1400x700" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Software Engineering</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
-						<button onclick="window.location.href='b.php'">Click me</button>
-					</div>
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearModal()">Cancel</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal"
+					(click)="createNewCourse()">Save</button>
 			</div>
 		</div>
-		
-		
-		
-	
-
+	</div>
 </div>

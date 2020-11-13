@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '@app/services/token-storage.service';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -9,19 +11,27 @@ import { AuthService } from '../../core/services/auth.service';
 export class HeaderComponent implements OnInit {
 
   isAuthorized=false;
-  constructor(private authService: AuthService) {
+  isTeachervisible=false;
+  isStudentVisible=false;
+  
+  
+  constructor(private authService: AuthService, private tokenStorageService : TokenStorageService, private router: Router) {
     
   }
 
+
+
+
   ngOnInit(): void {
+    var roles = this.tokenStorageService.getRoles();
+    this.isTeachervisible = roles.includes("TEACHER");
+    this.isStudentVisible = roles.includes("STUDENT");
   }
 
-  public login() {
-    this.authService.login();
-  }
- 
-  public logout() {
-    this.authService.logout();
+  logout()
+  {
+    this.tokenStorageService.signOut();
+    this.router.navigate(["auth/login"]);
   }
 
 }

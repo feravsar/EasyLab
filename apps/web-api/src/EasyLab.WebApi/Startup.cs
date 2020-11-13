@@ -1,39 +1,46 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using EasyLab.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using EasyLab.Core.Entities;
-using System.IO;
 using Microsoft.OpenApi.Models;
+
 using AutoMapper;
-using EasyLab.WebApi.Presenters;
+
+using EasyLab.Core.Entities;
 using EasyLab.Core.Module;
-using EasyLab.Infrastructure.Module;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using EasyLab.Infrastructure.Auth;
-using System.Text;
-using EasyLab.WebApi.Models.Settings;
+using EasyLab.Infrastructure.Data;
 using EasyLab.Infrastructure.Helpers;
+using EasyLab.Infrastructure.Module;
+using EasyLab.WebApi.Models.Settings;
+using EasyLab.WebApi.Presenters;
 
 namespace EasyLab.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -119,7 +126,7 @@ namespace EasyLab.WebApi
                 options.Password.RequiredLength = 8;
             });
 
-            identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole), identityBuilder.Services);
+            identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole<Guid>), identityBuilder.Services);
 
             identityBuilder
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -141,9 +148,10 @@ namespace EasyLab.WebApi
             services.AddControllers();
 
 
+
             services.AddSwaggerGen(c =>
                {
-                   c.SwaggerDoc("v1", new OpenApiInfo { Title = "Deneme Api", Version = "v1" });
+                   c.SwaggerDoc("v1", new OpenApiInfo { Title = "EasyLab Api", Version = "v1" });
 
 
                    var xmlFile = "EasyLab.Core.xml";
@@ -182,6 +190,8 @@ namespace EasyLab.WebApi
                    //c.IncludeXmlComments(xmlPath);
                    //c.IncludeXmlComments(xmlPath2);
                    //c.OperationFilter<FormatXmlCommentProperties>();
+                   if (Environment.IsProduction())
+                       c.DocumentFilter<PathPrefixInsertDocumentFilter>("api");
                });
 
 
@@ -197,9 +207,22 @@ namespace EasyLab.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            string swaggerEndPoint = String.Empty;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                swaggerEndPoint = "/swagger/v1/swagger.json";
+
+
+            }
+            else
+            {
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+                swaggerEndPoint = "/api/swagger/v1/swagger.json";
+
             }
 
             //app.UseHttpsRedirection();
@@ -209,13 +232,11 @@ namespace EasyLab.WebApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Deneme API V1");
+                c.SwaggerEndpoint(swaggerEndPoint, "EasyLab Api V1");
             });
 
+    
 
-
-
-            app.UseRouting();
             app.UseCors("AllowAny");
 
             app.UseRouting();
@@ -225,11 +246,11 @@ namespace EasyLab.WebApi
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-             {
-                 endpoints.MapControllerRoute(
-                     name: "default",
-                     pattern: "{controller}/{action=Index}/{id?}");
-             });
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
 
         }
     }

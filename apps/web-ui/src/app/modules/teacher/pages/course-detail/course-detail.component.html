@@ -1,1 +1,127 @@
-<p>course-detail works!</p>
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <h4>{{courseInfo.name}}</h4>
+        </div>
+
+    </div>
+    <div class="row p-2">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs d-flex justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#assign">Assignments </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#teachers">Members</a>
+                </li>
+
+            </ul>
+        </div>
+        <div id="myTabContent" class="tab-content col-md-12 p-2">
+            <div class="tab-pane fade active show" id="assign">
+                <div class="d-flex flex-column">
+                    <div class="p-2 align-self-end">
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                            data-target="#exampleModal"> <i class="fas fa-plus"></i> Create New Assignments</button>
+                    </div>
+                    <div class="p-2">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                *ngFor="let assignment of assignments">
+                                <div class="p-1">
+                                    <h4>{{assignment.title}} <small>({{assignment.author}})</small></h4>
+                                    <p>{{assignment.language}} - Due:{{assignment.due | date :  "dd.MM.y h:mm"}}</p>
+                                </div>
+                                <div class="p1">
+                                    <button type="button" class="btn btn-outline-info">Detail</button>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="teachers">
+                <div class="d-flex flex-column">
+                    <div class="p-2 align-self-end" >
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                            data-target="#userModal"> <i class="fas fa-plus"></i> Add Users</button>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            *ngFor="let user of users">
+                            <div class="p-1">
+                                {{user.name}} {{user.surname}}
+                                <p>{{user.email}}</p>
+                            </div>
+                            <div class="p-1">
+                                <span *ngIf="user.isInstructor" class="badge badge-danger">Instructor</span>
+                                <span *ngIf="!user.isInstructor" class="badge badge-info">Student</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Add new course modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create a new assignment!</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="clearModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <small *ngIf="newAssignment.title"><i>Title</i></small>
+                    <input [(ngModel)]="newAssignment.title" class="form-control" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <small *ngIf="newAssignment.description"> <i>Description</i></small>
+                    <textarea [(ngModel)]="newAssignment.description" class="form-control"
+                        placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <small *ngIf="newAssignment.due"> <i>Due</i></small>
+                    <input [(ngModel)]="newAssignment.due" type="datetime-local" class="form-control" placeholder="Due">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearModal()">Cancel</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                    (click)="createNewAssignment()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Add new course modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add new users to this course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <app-search-user (onSelect)="onUserSelect($event)"></app-search-user>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ footer[_ngcontent-c2] {
     position: relative;
     left: 0;
     bottom: 0;
-    background: #2c83ca;
+    background: #008cba !important;
 }
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: block;

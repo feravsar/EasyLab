@@ -1,0 +1,9 @@
+.padding-horizontal-30{
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.min-wh-400{
+    min-height: 400px;
+    min-width: 400px;
+}

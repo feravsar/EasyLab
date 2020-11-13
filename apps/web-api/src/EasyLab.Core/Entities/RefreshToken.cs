@@ -7,20 +7,19 @@ namespace EasyLab.Core.Entities{
         
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public string Token { get; private set; }
         public DateTime Expires { get; private set; }
-        public string UserId { get; private set; }
+        public Guid UserId { get; private set; }
 
 
         public virtual User User {get; set;}
-
         public bool Active => DateTime.UtcNow <= Expires;
         public string RemoteIpAddress { get; private set; }
 
-         public RefreshToken(string token, DateTime expires,string userId,string remoteIpAddress)
+         public RefreshToken(string token, DateTime expires,Guid userId,string remoteIpAddress)
         {
             Token = token;
             Expires = expires;
